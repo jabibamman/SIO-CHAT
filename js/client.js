@@ -13,7 +13,7 @@ var input = document.getElementById('input');
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    if (input.value != '') {
+    if (input.value !== '') {
         socket.emit('emission_message', input.value);
         input.value = ''; // Supprimer l'ancienne valeur pour réécrire un message
     }
@@ -28,7 +28,6 @@ socket.on('reception_message', (message) => {
 
         console.log(element.pseudo + " à écrit : " + element.msg);
     });
-
 
     window.scrollTo(0, document.body.scrollHeight); // Permet de scroller automatiquement
 
@@ -55,12 +54,10 @@ socket.on('get-pseudo', (userConnecter) => {
 
         a.onClick = salon(element.id_users);
 
-        // Permet d'afficehr les utilisateurs co et de ne pas s'afficher sois même
-        li.innerHTML = (socket.id !== element.id_users ? element.pseudo_client: null);
-
+        // Permet d'afficehr les utilisateurs co et de ne pas s'afficher sois même, j'ai mis a.innerHTML pour que les utilisateurs soient bien clicquable
+        a.innerHTML = (socket.id !== element.id_users ? element.pseudo_client: null);
 
         //Fonctionne
-        users.appendChild(li).appendChild(a);
         users.appendChild(li).appendChild(a);
 
         // Fonctionne pas il faut y réfléchir
@@ -70,10 +67,8 @@ socket.on('get-pseudo', (userConnecter) => {
 
 });
 
-
 var id_salon = 'salon'; //variable qui va définir un destinataire, par défaut le salon général
 var lesMessages = []; // Tableau qui va contenir l'ensemble des messages envoyés (semi-persistance)
-
 
 // Affichage des messages en fonction du choix de l'utilisateur :
 // - Soit les messages du salon général,

@@ -60,7 +60,8 @@ io.on('connection', (socket) => {
     // Saisie du pseudo de l'utilisateur
     socket.on('set-pseudo', async (pseudo) => {
         // LOG DE CONNEXION
-        if (pseudo.trim() !== "undefined") { console.log(pseudo.trim() + " vient de se connecter à " + new Date()); }
+        //if (pseudo.trim() !== "undefined") { console.log(pseudo.trim() + " vient de se connecter à " + new Date()); }
+        (pseudo.trim() !== "undefined" ? console.log(pseudo.trim() + " vient de se connecter à " + new Date()) : null);
 
         // ON RÉCUPÈRE LE PSEUDO
         socket.nickname = "<b style=\"color:"+generateColor()+"\">" + pseudo + "</b>";
