@@ -1,0 +1,101 @@
+body {
+    margin: 0;
+    padding-bottom: 3rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segeo UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+#form {
+    background: rgba(0, 0, 0, 0.15);
+    padding: 0.25rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    height: 3rem;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+}
+
+#input {
+    border: none;
+    padding: 0 1rem;
+    flex-grow: 1;
+    border-radius: 2rem;
+    margin: 0.25rem;
+}
+
+#input:focus {
+    outline: none;
+}
+
+#form > button {
+    background: #333;
+    border: none;
+    padding: 0 1rem;
+    margin: 0.25rem;
+    border-radius: 3px;
+    outline: none;
+    color: #fff;
+}
+
+#messages {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#messages > li {
+    padding: 0.5rem 1rem;
+}
+
+#messages > li:nth-child(odd) {
+    background: #efefef;
+}
+
+
+h1 {
+    font-size: 1.5em;
+    margin-top: .5em;
+}
+
+.connecter {
+    color: green;
+}
+
+@media (min-width: 1025px) {
+    .navbar {
+        display: none;
+    }
+}
+
+@media (max-width: 1025px) {
+    .userMonitor {
+        display: none;
+    }
+}
+
+.message-heading {
+    background: #0d6efd;
+    text-align: center;
+    border-radius: 0.5em;
+}
+
+.collapse {
+    display: block;
+}
+
+@media (max-width: 767px) {
+    .c-msg {
+        margin: 5em auto;
+        width: 100%;
+    }
+}
+
+@media (min-width: 768px) {
+    .c-msg {
+        margin-top: 3em;
+        margin-left: 9.5em;
+    }
+}
+

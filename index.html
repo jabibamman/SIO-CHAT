@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>SIO CHAT</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Ultimate-Sidebar-Menu-BS5.css">
+
+</head>
+
+<body>
+<!-- Menu de navigation fixé au top -->
+<nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top">
+    <a class="navbar-brand">SIO CHAT</a>
+    <!-- Permet d'afficher le nom des users connecté -->
+    <div><a class="btn btn-primary btn-customized open-menu" role="button"><i class="fa fa-navicon"></i> <span
+            class="navbar-toggler-icon"></span></a>
+        <div class="sidebar">
+            <div class="dismiss"><i class="fa fa-caret-left"></i>&#10060;</div>
+            <div class="brand"><a class="navbar-brand">Utilisateurs Connectés</a>
+               <!-- <div class="btn"><a>Example Button</a></div>-->
+            </div>
+            <nav class="navbar navbar-dark navbar-expand">
+                <div class="container-fluid">
+                    <ul class="navbar-nav flex-column me-auto connecter" id="users"></ul>
+                </div>
+            </nav>
+        </div>
+        <div class="overlay"></div>
+    </div>
+</nav>
+
+<!-- formulaire de prénom-->
+<form id="form" action="">
+    <input id="input" autocomplete="off" placeholder="Écrivez votre message juste ici... ">
+    <button id="button">Send</button>
+</form>
+
+<!-- Container -->
+<div class="container c-msg">
+    <div class="row">
+        <!-- Colonne affichant les message -->
+        <div class="col-md-14 col-xl-10 offset-xl-1">
+            <h1 class="message-heading">Messages</h1>
+            <ul class="list-unstyled" id="messages"></ul>
+        </div>
+    </div>
+</div>
+
+<!-- Initialisation des scripts-->
+<script src="/socket.io/socket.io.js"></script>
+<script src="bootstrap.min.js"></script>
+<script src="client.js"></script>
+<script src="server.js"></script>
+<script src="Ultimate-Sidebar-Menu-BS5.js"></script>
+</body>
+
+</html>
