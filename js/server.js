@@ -60,7 +60,7 @@ io.on('connection', (socket) => {
     // Saisie du pseudo de l'utilisateur
     socket.on('set-pseudo', async (pseudo) => {
         // LOG DE CONNEXION
-        if (pseudo.trim() != "undefined") { console.log(pseudo.trim() + " vient de se connecter à " + new Date()); }
+        if (pseudo.trim() !== "undefined") { console.log(pseudo.trim() + " vient de se connecter à " + new Date()); }
 
         // ON RÉCUPÈRE LE PSEUDO
         socket.nickname = "<b style=\"color:"+generateColor()+"\">" + pseudo + "</b>";
@@ -85,7 +85,7 @@ io.on('connection', (socket) => {
         /* console.log("Personnes Connecté(e)s : "); sockets.forEach(element => console.log(element.nickname)); */
     });
 
-    // Socket pour l'émission/reception des messages et socket id
+    // Socket pour l'émission/reception des messages et socket id - SERVER.js
     socket.on('emission_message', (message, dest_ID) => {
 
         // LOG DE MESSAGES
@@ -93,6 +93,7 @@ io.on('connection', (socket) => {
         socket.message = message;
 
         var laDate = new Date();
+
         var message = {
             emet_id : socket.id,
             dest_ID : dest_ID,
@@ -104,7 +105,6 @@ io.on('connection', (socket) => {
 
         // Mis en format JSON
         if(dest_ID == "salon") {
-
             io.emit('reception_message',
                 {
                     message: message
@@ -116,6 +116,7 @@ io.on('connection', (socket) => {
                 });
         }
     });
+
 
     // Socket pour informer la déconnection
     socket.on('disconnect', async () => {

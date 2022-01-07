@@ -19,16 +19,19 @@ form.addEventListener('submit', (e) => {
     }
 });
 
-// Réception et affichage du message
+// Réception et affichage du message - CLIENT.js
 socket.on('reception_message', (message) => {
-    var li = document.createElement("LI");
+    message.forEach((element) => {
+        var li = document.createElement("LI");
+        li.innerHTML = element.pseudo + " : " + element.msg;
+        messages.appendChild(li);
 
-    li.innerHTML = message.pseudo + " : " + message.msg;
-    messages.appendChild(li);
+        console.log(element.pseudo + " à écrit : " + element.msg);
+    });
+
 
     window.scrollTo(0, document.body.scrollHeight); // Permet de scroller automatiquement
 
-    console.log(message + " à écrit : " + pse);
 });
 
 socket.on('get-pseudo', (userConnecter) => {
@@ -52,10 +55,12 @@ socket.on('get-pseudo', (userConnecter) => {
 
         a.onClick = salon(element.id_users);
 
+        // Permet d'afficehr les utilisateurs co et de ne pas s'afficher sois même
+        li.innerHTML = (socket.id !== element.id_users ? element.pseudo_client: null);
 
-        li.innerHTML = element.pseudo_client;
 
         //Fonctionne
+        users.appendChild(li).appendChild(a);
         users.appendChild(li).appendChild(a);
 
         // Fonctionne pas il faut y réfléchir
