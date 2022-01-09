@@ -103,7 +103,6 @@ io.on('connection', (socket) => {
             date : laDate.toLocaleDateString()+' - ' + laDate.toLocaleTimeString(),
             recu : false
         }
-
         // Mis en format JSON
         if(dest_ID == "salon") {
             io.emit('reception_message',

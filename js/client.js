@@ -21,6 +21,7 @@ form.addEventListener('submit', (e) => {
 
 // Réception et affichage du message - CLIENT.js
 socket.on('reception_message', (message) => {
+    console.log(message);
     message.forEach((element) => {
         var li = document.createElement("LI");
         li.innerHTML = element.pseudo + " : " + element.msg;
@@ -38,13 +39,15 @@ socket.on('get-pseudo', (userConnecter) => {
     users.innerHTML = "";
 
     var salon_li = document.createElement("li");
-    var salon_a = document.createElement("li");
+    var salon_a = document.createElement("a");
 
-    salon_li.innerHTML = "Salon";
+    salon_a.innerHTML = "Salon";
 
     // On met un id à salon ce qui donnera <li id="salon">Salon</li>
     salon_li.setAttribute("id", id_salon);
-    users.appendChild(salon_a).appendChild(salon_li);
+
+    // <li><a> Exemple de l'appendChild utilisé</a></li>
+    users.appendChild(salon_li).appendChild(salon_a);
 
     // BOUCLE POUR CHAQUE PERMET DE CRÉER LE LI ET D'IMPLÉMENTER AUTOMATIQUEMENT UTILISATEURS CONNECTÉS ET DÉCONNECTÉS
     userConnecter.forEach((element) => {
