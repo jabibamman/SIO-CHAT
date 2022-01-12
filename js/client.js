@@ -14,21 +14,29 @@ form.addEventListener('submit', (e) => {
     e.preventDefault();
 
     if (input.value !== '') {
-        socket.emit('emission_message', input.value);
+        socket.emit('emission_message', input.value, id_salon);
+
         input.value = ''; // Supprimer l'ancienne valeur pour réécrire un message
     }
 });
 
 // Réception et affichage du message - CLIENT.js
 socket.on('reception_message', (message) => {
-    console.log(message);
-    message.forEach((element) => {
+    messages.innerHTML = "";
+
+
+    lesMessages.push(message);
+
+
+    lesMessages.forEach((element) => {
+
         var li = document.createElement("LI");
-        li.innerHTML = element.pseudo + " : " + element.msg;
+        li.innerHTML = element.message.pseudo + " : " + element.message.msg;
+
         messages.appendChild(li);
 
-        console.log(element.pseudo + " à écrit : " + element.msg);
-    });
+
+    })
 
     window.scrollTo(0, document.body.scrollHeight); // Permet de scroller automatiquement
 
