@@ -1,13 +1,14 @@
-var socket = io();
+const socket = io();
+
 // Sélection pseudo
 socket.emit('set-pseudo', prompt("Pseudo ?"));
 
 // Variables pour récupérer les éléments HTML
-var messages = document.getElementById('messages'); // la liste messages
-var users = document.getElementById('users'); // la liste users connecté
+const messages = document.getElementById('messages'); // la liste messages
+const users = document.getElementById('users'); // la liste users connecté
 
-var form = document.getElementById('form');
-var input = document.getElementById('input');
+const form = document.getElementById('form');
+const input = document.getElementById('input');
 
 // Écouteur et envoi du message du formulaire
 form.addEventListener('submit', (e) => {
@@ -18,7 +19,23 @@ form.addEventListener('submit', (e) => {
 
         input.value = ''; // Supprimer l'ancienne valeur pour réécrire un message
     }
+
 });
+
+/* Ici je souhaite mettre en place la semi persistance mais le soucis étant que je n'y arrive pas (revoir mon code client du socket)
+* - Le tableau de tout les messages est bien reçu par le client lors de la connection, le soucis est l'affichage
+*/
+// socket.on('allMsg', (allMsg) => {
+//     console.log(allMsg);
+//
+//     allMsg.forEach((element) => {
+//         console.log(element.message.pseudo);
+//         // var li = document.createElement("LI");
+//         // li.innerHTML = element.message.pseudo + " : " + element.message.msg;
+//         //
+//         // messages.appendChild(li);
+//     })
+// });
 
 // Réception et affichage du message - CLIENT.js
 socket.on('reception_message', (message) => {
@@ -29,7 +46,6 @@ socket.on('reception_message', (message) => {
 
 
     lesMessages.forEach((element) => {
-
         var li = document.createElement("LI");
         li.innerHTML = element.message.pseudo + " : " + element.message.msg;
 
@@ -75,6 +91,8 @@ socket.on('get-pseudo', (userConnecter) => {
         //users.innerHTML(li).innerHTML(a);
 
     });
+
+
 
 });
 

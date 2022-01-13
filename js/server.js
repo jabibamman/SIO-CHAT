@@ -8,6 +8,7 @@ const {Server} = require("socket.io");
 const io = new Server(server);
 var path = require("path");
 let PORT = 8080;
+var allMsg = [];
 
 // Port d'écoute
 server.listen(PORT, () => {
@@ -57,6 +58,7 @@ function generateColor() {
 
 // Lancement du gestionnaire d'événements, qui va gérer notre Socket
 io.on('connection', (socket) => {
+
     // Saisie du pseudo de l'utilisateur
     socket.on('set-pseudo', async (pseudo) => {
         // LOG DE CONNEXION
@@ -80,7 +82,7 @@ io.on('connection', (socket) => {
             });
             io.emit('get-pseudo', userConnecter);
         });
-
+        io.emit('allMsg', allMsg);
 
         // PERMET D'AFFICHER LES PERSONNES CONNECTÉS EN LOG
         /* console.log("Personnes Connecté(e)s : "); sockets.forEach(element => console.log(element.nickname)); */
@@ -104,21 +106,24 @@ io.on('connection', (socket) => {
             date : laDate.toLocaleDateString()+' - ' + laDate.toLocaleTimeString(),
             recu : false
         }
+        allMsg.push(message);
 
 
-        // Mis en format JSON
-        if(id_salon == "salon") {
-            io.emit('reception_message',
-                {
-                    message: message
-                });
-        }else {
-            io.to(message.dest_ID).to(message.emet_id).emit('reception_message',
-                {
-                    message: message
-                });
-        }
+            // Mis en format JSON
+            if(id_salon == "salon") {
+                io.emit('reception_message',
+                    {
+                        message: message
+                    });
+            }else {
+                io.to(message.dest_ID).to(message.emet_id).emit('reception_message',
+                    {
+                        message: message
+                    });
+            }
+
     });
+
 
 
     // Socket pour informer la déconnection
