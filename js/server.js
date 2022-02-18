@@ -73,7 +73,7 @@ io.on('connection', (socket) => {
         io.fetchSockets().then((room)=>{
 
             // on crée un premier utilisateur nommé salon, retournant l'id salon a chaque fois
-            var userConnecter=[];
+            var userConnecter=[ {id_users: 'general', pseudo_client: 'Salon' } ];
             room.forEach((item) => {
                 userConnecter.push({
                     id_users : item.id,
@@ -106,11 +106,11 @@ io.on('connection', (socket) => {
             date : laDate.toLocaleDateString()+' - ' + laDate.toLocaleTimeString(),
             recu : false
         }
-        allMsg.push(message);
+        //allMsg.push(message);
 
 
-            // Mis en format JSON
-            if(id_salon == "salon") {
+        // Mis en format JSON
+            if(id_salon == "general") {
                 io.emit('reception_message',
                     {
                         message: message
