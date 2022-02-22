@@ -1,4 +1,6 @@
 const socket = io();
+var lesMessages = []; // Tableau qui va contenir l'ensemble des messages envoyés (semi-persistance)
+
 
 // Sélection pseudo
 socket.emit('set-pseudo', prompt("Pseudo ?"));
@@ -22,44 +24,21 @@ form.addEventListener('submit', (e) => {
 
 });
 
-/* Ici je souhaite mettre en place la semi persistance mais le soucis étant que je n'y arrive pas (revoir mon code client du socket)
-* - Le tableau de tout les messages est bien reçu par le client lors de la connection, le soucis est l'affichage
-*/
-
-// TEST
-// socket.on('allMsg', (allMsg) => {
-//     console.log(allMsg);
-//     var li = document.createElement("LI");
-//
-//
-//     allMsg.forEach((element) => {
-//         li.innerHTML = "";
-//         // console.log(element.msg.pseudo);
-//         li.innerHTML = element.pseudo + " : " + element.msg;
-//
-//         messages.appendChild(li);
-//     })
-// });
-
 // Réception et affichage du message - CLIENT.js
 socket.on('reception_message', (message) => {
-    messages.innerHTML = "";
-
-
-    lesMessages.push(message);
-
-
-    lesMessages.forEach((element) => {
+    console.log("Dest id : " + message.dest_ID + " ID salon : " + id_salon + " emetteur id : "+message.emet_id + "socket id"  + socket.id);
+    if (message.dest_ID === id_salon) {
         var li = document.createElement("LI");
-        li.innerHTML = element.message.pseudo + " : " + element.message.msg;
+        li.innerHTML = message.pseudo + " : " + message.msg;
         messages.appendChild(li);
-
-
-    })
-
-
-
-
+    }else{
+        console.log("test");
+    }
+    lesMessages.push({
+        pseudo: message.pseudo,
+        message: message.msg,
+        dest_ID: message.dest_ID
+    });
     console.log(lesMessages);
 
     window.scrollTo(0, document.body.scrollHeight); // Permet de scroller automatiquement
@@ -86,24 +65,19 @@ socket.on('get-pseudo', (userConnecter) => {
         a.href = "#";
 
         a.setAttribute("onclick", "salon('"+element.id_users+"')");
-        //a.setAttribute('onclick', e);
 
         console.log("Salon :", id_salon);
 
         // Permet d'afficehr les utilisateurs co et de ne pas s'afficher sois même, j'ai mis a.innerHTML pour que les utilisateurs soient bien clicquable
         a.innerHTML = (socket.id !== element.id_users ? element.pseudo_client: null);
-
         //Fonctionne
         users.appendChild(li).appendChild(a);
 
     });
 
-
-
 });
 
 var id_salon = 'general'; //variable qui va définir un destinataire, par défaut le salon général
-var lesMessages = []; // Tableau qui va contenir l'ensemble des messages envoyés (semi-persistance)
 
 // Affichage des messages en fonction du choix de l'utilisateur :
 // - Soit les messages du salon général,
@@ -113,10 +87,13 @@ function salon(id) {
     messages.innerHTML = "";
 
     lesMessages.forEach((contenu) => {
-        //console.log(lesMessages.message.dest_ID); // Probleme avec le dest ID
-        if(contenu.dest_ID == id_salon){
+        console.log("Ctn message : "+contenu.dest_ID + ", salon : " + id_salon);
+
+
+        if(contenu.dest_ID === id_salon){
             var li = document.createElement("LI");
-            li.innerHTML = contenu.pseudo + " : " + contenu.msg;
+            li.innerHTML = contenu.pseudo + " : " + contenu.message;
+            messages.appendChild(li);
         }
     })
 }
@@ -127,6 +104,5 @@ function salon(id) {
 function check_unread() {
 
 }
-
 
 

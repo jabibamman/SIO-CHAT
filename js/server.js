@@ -89,7 +89,7 @@ io.on('connection', (socket) => {
     });
 
     // Socket pour l'émission/reception des messages et socket id - SERVER.js
-    socket.on('emission_message', (message, id_salon) => {
+    socket.on('emission_message', (message, id) => {
 
         // LOG DE MESSAGES
         console.log(socket.nicknameLog.trim() + " à écrit : " + message + " à " + new Date().getHours() + ":" + new Date().getUTCMinutes() + " " + socket.id);
@@ -100,26 +100,19 @@ io.on('connection', (socket) => {
 
         var message = {
             emet_id : socket.id,
-            dest_ID : id_salon,
+            dest_ID : id,
             pseudo : socket.nickname,
             msg : message,
             date : laDate.toLocaleDateString()+' - ' + laDate.toLocaleTimeString(),
             recu : false
         }
-        //allMsg.push(message);
-
 
         // Mis en format JSON
-            if(id_salon == "general") {
-                io.emit('reception_message',
-                    {
-                        message: message
-                    });
+            if(id == "general") {
+                io.emit('reception_message',message);
+
             }else {
-                io.to(message.dest_ID).to(message.emet_id).emit('reception_message',
-                    {
-                        message: message
-                    });
+                io.to(id).to(socket.id).emit('reception_message',message);
             }
 
     });
