@@ -27,22 +27,19 @@ form.addEventListener('submit', (e) => {
 // Réception et affichage du message - CLIENT.js
 socket.on('reception_message', (message) => {
     console.log("Dest id : " + message.dest_ID + " ID salon : " + id_salon + " emetteur id : "+message.emet_id + "socket id"  + socket.id);
-    if (message.dest_ID === id_salon) {
+
+    if (message.dest_ID == id_salon) {
         var li = document.createElement("LI");
         li.innerHTML = message.pseudo + " : " + message.msg;
         messages.appendChild(li);
-    }else{
-        console.log("test");
     }
+
     lesMessages.push({
         pseudo: message.pseudo,
         message: message.msg,
         dest_ID: message.dest_ID
     });
-    console.log(lesMessages);
-
     window.scrollTo(0, document.body.scrollHeight); // Permet de scroller automatiquement
-
 });
 
 socket.on('get-pseudo', (userConnecter) => {

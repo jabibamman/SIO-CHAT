@@ -92,8 +92,7 @@ io.on('connection', (socket) => {
     socket.on('emission_message', (message, id) => {
 
         // LOG DE MESSAGES
-        console.log(socket.nicknameLog.trim() + " à écrit : " + message + " à " + new Date().getHours() + ":" + new Date().getUTCMinutes() + " " + socket.id);
-        socket.message = message;
+        console.log(socket.nicknameLog.trim() + " à écrit : " + message + " à " + new Date().getHours() + ":" + new Date().getUTCMinutes() + " émetteur : " + socket.id + " destinataire : " + id );
 
         var laDate = new Date();
 
