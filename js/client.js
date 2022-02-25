@@ -37,7 +37,8 @@ socket.on('reception_message', (message) => {
     lesMessages.push({
         pseudo: message.pseudo,
         message: message.msg,
-        dest_ID: message.dest_ID
+        dest_ID: message.dest_ID,
+        emet_id: message.emet_id
     });
     window.scrollTo(0, document.body.scrollHeight); // Permet de scroller automatiquement
 });
@@ -87,7 +88,7 @@ function salon(id) {
         console.log("destinataire : "+contenu.dest_ID + ", salon : " + id_salon);
 
 
-        if(contenu.dest_ID === id_salon){
+        if(contenu.dest_ID === id_salon || contenu.emet_id === id_salon && id_salon !== "general" && contenu.dest_ID !== "general"){
             var li = document.createElement("LI");
             li.innerHTML = contenu.pseudo + " : " + contenu.message;
             messages.appendChild(li);
