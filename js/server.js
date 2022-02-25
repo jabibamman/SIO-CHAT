@@ -97,7 +97,7 @@ io.on('connection', (socket) => {
         var laDate = new Date();
 
 
-        var message = {
+        var unMessage = {
             emet_id : socket.id,
             dest_ID : id,
             pseudo : socket.nickname,
@@ -107,11 +107,11 @@ io.on('connection', (socket) => {
         }
 
         // Mis en format JSON
-            if(id == "general") {
-                io.emit('reception_message',message);
+            if(id === "general") {
+                io.emit('reception_message',unMessage);
 
-            }else {
-                io.to(id).to(socket.id).emit('reception_message',message);
+            }else{
+                io.to(id).to(socket.id).emit('reception_message',unMessage);
             }
 
     });

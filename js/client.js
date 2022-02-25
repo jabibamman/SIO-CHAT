@@ -26,9 +26,9 @@ form.addEventListener('submit', (e) => {
 
 // Réception et affichage du message - CLIENT.js
 socket.on('reception_message', (message) => {
-    console.log("Dest id : " + message.dest_ID + " ID salon : " + id_salon + " emetteur id : "+message.emet_id + "socket id"  + socket.id);
+    console.log("Dest id : " + message.dest_ID + " ID salon : " + id_salon + " emetteur id : "+message.emet_id + " , socket id : "  + socket.id);
 
-    if (message.dest_ID == id_salon) {
+    if (message.dest_ID === id_salon || id_salon === message.emet_id) {
         var li = document.createElement("LI");
         li.innerHTML = message.pseudo + " : " + message.msg;
         messages.appendChild(li);
@@ -84,7 +84,7 @@ function salon(id) {
     messages.innerHTML = "";
 
     lesMessages.forEach((contenu) => {
-        console.log("Ctn message : "+contenu.dest_ID + ", salon : " + id_salon);
+        console.log("destinataire : "+contenu.dest_ID + ", salon : " + id_salon);
 
 
         if(contenu.dest_ID === id_salon){
