@@ -88,7 +88,7 @@ function salon(id) {
         console.log("destinataire : "+contenu.dest_ID + ", salon : " + id_salon);
 
 
-        if(contenu.dest_ID === id_salon || contenu.emet_id === id_salon && id_salon !== "general" && contenu.dest_ID !== "general"){
+        if(contenu.dest_ID === id_salon || contenu.emet_id === id_salon && contenu.dest_ID !== "general"){
             var li = document.createElement("LI");
             li.innerHTML = contenu.pseudo + " : " + contenu.message;
             messages.appendChild(li);
