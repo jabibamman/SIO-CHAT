@@ -67,7 +67,7 @@ a:link {
    text-decoration: none;
 }
 
-a:hover {
+#users a:hover {
     font-size: 120%;
 }
 

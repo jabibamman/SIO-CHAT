@@ -113,4 +113,20 @@ function check_unread() {
 
 }
 
+/**
+ * Déconnecte l'utilisateurs lorsqu'il appuie sur se déconnecter
+ * Si il appuie sur ok, son socket sera déconnecté
+ */
+function disconnect () {
+    var result = confirm("Vous voulez déconnecter ?");
+
+    if (result) {
+        alert("Vous êtes déconnecté, reconnectez vous en rechargeant la page");
+        socket.disconnect();
+    } else {
+        alert("Vous êtes toujours connecté");
+    }
+
+}
+
 
