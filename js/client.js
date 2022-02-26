@@ -68,7 +68,7 @@ socket.on('get-pseudo', (userConnecter) => {
 
         a.setAttribute("onclick", "salon('" + element.id_users + "')");
 
-        console.log("Salon :", id_salon);
+        // console.log("Salon :", id_salon); // DEBUG MODE
 
         // Permet d'afficher les utilisateurs connecté et de ne pas s'afficher sois même, j'ai mis a.innerHTML pour que les utilisateurs soient bien clicquable
         a.innerHTML = (socket.id !== element.id_users ? element.pseudo_client : null);
@@ -94,7 +94,7 @@ function salon(id) {
     messages.innerHTML = "";
 
     lesMessages.forEach((contenu) => {
-        console.log("destinataire : " + contenu.dest_ID + ", salon : " + id_salon);
+        //console.log("destinataire : " + contenu.dest_ID + ", salon : " + id_salon); // DEBUG MODE
 
         // On coupe la condition en deux, la première partie est pour le salon général et la deuxième pour les messages privés
         if (contenu.dest_ID === id_salon || contenu.emet_id === id_salon && contenu.dest_ID !== "general") {
@@ -110,6 +110,22 @@ function salon(id) {
  * incrémentée à coté de l'utilisateur en question
  */
 function check_unread() {
+
+}
+
+/**
+ * Déconnecte l'utilisateurs lorsqu'il appuie sur se déconnecter
+ * Si il appuie sur ok, son socket sera déconnecté
+ */
+function disconnect () {
+    var result = confirm("Vous voulez déconnecter ?");
+
+    if (result) {
+        alert("Vous êtes déconnecté, reconnectez vous en rechargeant la page");
+        socket.disconnect();
+    } else {
+        alert("Vous êtes toujours connecté");
+    }
 
 }
 
