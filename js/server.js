@@ -134,7 +134,7 @@ io.on('connection', (socket) => {
     */
     socket.on('disconnect', async () => {
         // LOG DE DÉCONNEXION
-        let pseudoDisconnected;
+        let pseudoDisconnected // Variable créée pour éviter erreur de code
 
         socket._onclose( pseudoDisconnected = socket.nicknameLog);
 
