@@ -134,7 +134,7 @@ io.on('connection', (socket) => {
     */
     socket.on('disconnect', async () => {
         // LOG DE DÉCONNEXION
-        let pseudoDisconnected;
+        let pseudoDisconnected // Variable créée pour éviter erreur de code
 
         socket._onclose( pseudoDisconnected = socket.nicknameLog);
 
@@ -150,8 +150,7 @@ io.on('connection', (socket) => {
             // À chaque déconnexion les utilisateurs dans le tableau
             room.forEach((item) => {
                 userConnecter.push({
-                    id_users: item.id,
-                    pseudo_client: item.nickname
+                    id_users: item.id, pseudo_client: item.nickname
                 });
             });
             io.emit('get-pseudo', userConnecter);
