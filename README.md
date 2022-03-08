@@ -19,7 +19,7 @@
 <h3 align="center">SIO CHAT</h3>
 
   <p align="center">
-    Ce projet à été réalisé dans le cadre de ma 2ème année du BTS. C'est un chat de discussion en temps réel à l'aide de : **NodeJS** , **Socket.io** et **ExpressJS**.
+    Ce projet à été réalisé dans le cadre de ma 2ème année du BTS. C'est un chat de discussion en temps réel à l'aide de : <br>NodeJS</br> , **Socket.io** et **ExpressJS**.
     <br />
     <a href="https://github.com/jabibamman/SIO-CHAT"><strong>Explore the docs »</strong></a>
     <br />
