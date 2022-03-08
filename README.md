@@ -175,7 +175,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 James - [Linkedin](https://fr.linkedin.com/in/jamesabib) - james.abibamman@gmail.com - [Portfolio](https://abib-james.fr)
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/github_username/SIO-CHAT)
+Project Link: [https://github.com/github_username/sio-chat](https://github.com/github_username/SIO-CHAT)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
