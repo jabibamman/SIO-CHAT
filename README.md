@@ -26,7 +26,7 @@
     <a href="https://github.com/jabibamman/SIO-CHAT"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/jabibamman/SIO-CHATe">View Demo</a>
+    <a href="https://github.com/jabibamman/SIO-CHAT">View Demo</a>
     ·
     <a href="https://github.com/jabibamman/SIO-CHAT/issues">Report Bug</a>
     ·
