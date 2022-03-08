@@ -206,4 +206,4 @@ Project Link: [https://github.com/github_username/sio-chat](https://github.com/g
 [license-url]: https://github.com/jabibamman/SIO-CHAT/blob/main/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/jamesabib
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: img/screenshot.png
