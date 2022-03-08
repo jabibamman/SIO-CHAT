@@ -13,7 +13,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/jabibamman/SIO-CHAT">
-    <img src="img/logo.png" alt="Logo" width="80" height="80">
+    <img src="img/logo.png" alt="Logo" width="180" height"180">
   </a>
 
 <h3 align="center">SIO CHAT</h3>
