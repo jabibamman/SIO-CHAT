@@ -13,7 +13,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/jabibamman/SIO-CHAT">
-    <img src="img/logo.png" alt="Logo" width="120" height="80">
+    <img src="img/logo.png" alt="Logo" width="180" height"180">
   </a>
 
 <h3 align="center">SIO CHAT</h3>
@@ -65,7 +65,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot]](https://abib-james.fr)
 
 Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
 
@@ -206,4 +206,4 @@ Project Link: [https://github.com/github_username/sio-chat](https://github.com/g
 [license-url]: https://github.com/jabibamman/SIO-CHAT/blob/main/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/jamesabib
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: img/screenshot.png
