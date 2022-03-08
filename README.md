@@ -12,7 +12,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/jabibamman/SIO-CHATe">
+  <a href="https://github.com/jabibamman/SIO-CHAT">
     <img src="img/logo.png" alt="Logo" width="80" height="80">
   </a>
 
