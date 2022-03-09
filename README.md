@@ -51,7 +51,7 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#Exemple-d'usage">Usage</a></li>
+    <li><a href="#Exemple-d'utilisation">Utilsations</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#Contributeurs">Contributeurs</a></li>
     <li><a href="#Licence">Licence</a></li>
@@ -123,7 +123,7 @@ Installer la dernière version de npm si ce n'est pas déjà fait :
 
 
 <!-- USAGE EXAMPLES -->
-## Exemple d'usage
+## Exemple d'utilisation
 
  Pour plus d'exemples, veuillez vous référer à la [Documentation](https://github.com/jabibamman/SIO-CHAT/wiki).
 
