@@ -191,9 +191,9 @@ Project Link: [https://github.com/github_username/sio-chat](https://github.com/g
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/github/contributors/jabibamman/SIO-CHAT.svg?style=for-the-badge
-[contributors-url]: https://github.com/abibamman/SIO-CHAT/graphs/contributors
+[contributors-url]: https://github.com/jabibamman/SIO-CHAT/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/jabibamman/SIO-CHAT.svg?style=for-the-badge
-[forks-url]: https://github.com/gabibamman/SIO-CHAT/network/members
+[forks-url]: https://github.com/jabibamman/SIO-CHAT/network/members
 [stars-shield]: https://img.shields.io/github/stars/jabibamman/SIO-CHAT.svg?style=for-the-badge
 [stars-url]: https://github.com/jabibamman/SIO-CHAT/stargazers
 [issues-shield]: https://img.shields.io/github/issues/jabibamman/SIO-CHAT.svg?style=for-the-badge
