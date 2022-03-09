@@ -65,6 +65,14 @@
 ## À Propos du projet
 
 [![Product Name Screen Shot][product-screenshot]](https://abib-james.fr)
+<p>Cette application est une application de messagerie permettant une discussion en temps réel entre plusieurs personnes.
+Lors de la mise en place de ce projet je me suis inspiré d'une autre application de messagerie nommée Discord.</p>
+
+<p>Le but final de ce projet est de pouvoir avoir des messages persistants c'est à dire qu'ils restent enregistré sur la page même
+lors d'une reconnexion d'un utilisateur.</p>
+
+<p>Par la suite, il faudra connecter l'application à une base de donnée afin de permettre une sauvegarde des messages
+envoyés. Il y aura une page de <a href="#screenshot-login">login/mot de passe</a> pour les utilisateurs.</p>
 
 <p align="right">(<a href="#top">retourner en haut</a>)</p>
 
