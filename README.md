@@ -39,7 +39,7 @@
   <summary>Table des matières</summary>
   <ol>
     <li>
-      <a href="#about-the-project">À Propos du projet</a>
+      <a href="#À-Propos-du-projet">À Propos du projet</a>
       <ul>
         <li><a href="#built-with">Réalisé avec</a></li>
       </ul>
