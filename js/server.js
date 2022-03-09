@@ -6,7 +6,7 @@ const server = http.createServer(app);
 const {Server} = require("socket.io");
 const io = new Server(server);
 var path = require("path");
-let PORT = 8080;
+const PORT = 8080;
 var allMsg = [];
 
 // Port d'écoute
