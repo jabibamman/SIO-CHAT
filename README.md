@@ -186,7 +186,7 @@ Project Link: [https://github.com/github_username/sio-chat](https://github.com/g
 [forks-shield]: https://img.shields.io/github/forks/abibamman/SIO-CHAT.svg?style=for-the-badge
 [forks-url]: https://github.com/gabibamman/SIO-CHAT/network/members
 [stars-shield]: https://img.shields.io/github/stars/abibamman/SIO-CHAT.svg?style=for-the-badge
-[stars-url]: https://github.com/jabibamman/SIO-CHAT/
+[stars-url]: https://github.com/jabibamman/SIO-CHAT/stargazers
 [issues-shield]: https://img.shields.io/github/issues/gabibamman/SIO-CHAT.svg?style=for-the-badge
 [issues-url]: https://github.com/jabibamman/SIO-CHAT/issues
 [license-shield]: https://img.shields.io/github/license/github_username/repo_name.svg?style=for-the-badge
