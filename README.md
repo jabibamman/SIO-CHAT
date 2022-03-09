@@ -138,7 +138,8 @@ Installer la dernière version de npm si ce n'est pas déjà fait :
 - [✅] Application responsive (Bootstrap)
 - [✅] Messages privés entre utilisateurs
     - [❌] Notifications lors d'un message privé
-- [❌] Persistance des messages
+- [❌] Mise en place d'une base de donnée
+    - - [❌] Persistance des messages
 
 Voir les [problèmes ouverts](https://github.com/github_username/repo_name/issues) pour une liste complète des fonctionnalités proposées (et des problèmes connus).
 
