@@ -65,7 +65,7 @@
 ## À Propos du projet
 
 [![Product Name Screen Shot][product-screenshot1]](https://abib-james.fr)
-<p>Cette application est une application de messagerie permettant une discussion en temps réel entre plusieurs personnes.
+<p id="about-the-project">Cette application est une application de messagerie permettant une discussion en temps réel entre plusieurs personnes.
 Lors de la mise en place de ce projet je me suis inspiré d'une autre application de messagerie nommée Discord.</p>
 
 [![Product Name Screen Shot][product-screenshot2]](https://abib-james.fr)
