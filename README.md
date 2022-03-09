@@ -54,7 +54,7 @@
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributeurs</a></li>
-    <li><a href="#license">License</a></li>
+    <li><a href="#license">Licence</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
@@ -158,7 +158,7 @@ Merci encore!
 
 
 <!-- LICENSE -->
-## License
+## Licence
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
