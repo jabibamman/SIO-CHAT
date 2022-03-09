@@ -51,7 +51,7 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
+    <li><a href="#Usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#Contributeurs">Contributeurs</a></li>
     <li><a href="#Licence">Licence</a></li>
