@@ -64,10 +64,11 @@
 <!-- ABOUT THE PROJECT -->
 ## À Propos du projet
 
-[![Product Name Screen Shot][product-screenshot]](https://abib-james.fr)
+[![Product Name Screen Shot][product-screenshot1]](https://abib-james.fr)
 <p>Cette application est une application de messagerie permettant une discussion en temps réel entre plusieurs personnes.
 Lors de la mise en place de ce projet je me suis inspiré d'une autre application de messagerie nommée Discord.</p>
 
+[![Product Name Screen Shot][product-screenshot2]](https://abib-james.fr)
 <p>Le but final de ce projet est de pouvoir avoir des messages persistants c'est à dire qu'ils restent enregistré sur la page même
 lors d'une reconnexion d'un utilisateur.</p>
 
@@ -201,4 +202,5 @@ Project Link: [https://github.com/github_username/sio-chat](https://github.com/g
 [license-url]: https://github.com/jabibamman/SIO-CHAT/blob/main/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/jamesabib
-[product-screenshot]: img/screenshot.png
+[product-screenshot1]: img/screenshot.png
+[product-screenshot2]: img/connexion.png
