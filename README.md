@@ -41,20 +41,20 @@
     <li>
       <a href="#À-Propos-du-projet">À Propos du projet</a>
       <ul>
-        <li><a href="#built-with">Réalisé avec</a></li>
+        <li><a href="#Réalisé-avec">Réalisé avec</a></li>
       </ul>
     </li>
     <li>
-      <a href="#getting-started">Installation</a>
+      <a href="#Installation">Installation</a>
       <ul>
-        <li><a href="#prerequisites">Prérequis</a></li>
+        <li><a href="#Prérequis">Prérequis</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributeurs</a></li>
-    <li><a href="#license">Licence</a></li>
+    <li><a href="#Contributeurs">Contributeurs</a></li>
+    <li><a href="#Licence">Licence</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
 </details>
@@ -65,7 +65,7 @@
 ## À Propos du projet
 
 [![Product Name Screen Shot][product-screenshot1]](https://abib-james.fr)
-<p id="about-the-project">Cette application est une application de messagerie permettant une discussion en temps réel entre plusieurs personnes.
+<p>Cette application est une application de messagerie permettant une discussion en temps réel entre plusieurs personnes.
 Lors de la mise en place de ce projet je me suis inspiré d'une autre application de messagerie nommée Discord.</p>
 
 [![Product Name Screen Shot][product-screenshot2]](https://abib-james.fr)
