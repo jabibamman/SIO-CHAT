@@ -115,7 +115,7 @@ Installer la dernière version de npm si ce n'est pas déjà fait :
    ```
 4. Entrer votre port dans `server.js`
    ```js
-   const PORT = 'ENTREZ YOUR PORT';
+   const PORT = 'ENTREZ VOTRE PORT';
    ```
 
 <p align="right">(<a href="#top">retourner en haut</a>)</p>
@@ -181,7 +181,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 James - [Linkedin](https://fr.linkedin.com/in/jamesabib) - james.abibamman@gmail.com - [Portfolio](https://abib-james.fr)
 
-Project Link: [https://github.com/github_username/sio-chat](https://github.com/github_username/SIO-CHAT)
+Project Link: [https://github.com/jabibamman/SIO-CHAT](https://github.com/jabibamman/SIO-CHAT)
 
 <p align="right">(<a href="#top">retourner en haut</a>)</p>
 
