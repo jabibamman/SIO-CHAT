@@ -137,7 +137,7 @@ Installer la dernière version de npm si ce n'est pas déjà fait :
 - [✅] Affichages des utilisateurs connectés
 - [✅] Application responsive (Bootstrap)
 - [✅] Messages privés entre utilisateurs
-    - [❌] Notifications lors d'un message privé
+    - [✅] Notifications lors d'un message privé
 - [❌] Mise en place d'une base de donnée
     - - [❌] Persistance des messages
 

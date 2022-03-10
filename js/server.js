@@ -145,7 +145,7 @@ io.on('connection', (socket) => {
 
         // Récupération de la liste des utilisateurs (Sockets) connectés
         io.fetchSockets().then((room) => {
-            var userConnecter = [];
+            var userConnecter = [{id_users: 'general', pseudo_client: 'Salon'}];
 
             // À chaque déconnexion les utilisateurs dans le tableau
             room.forEach((item) => {

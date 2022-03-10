@@ -31,19 +31,18 @@ form.addEventListener('submit', (e) => {
  Réception et affichage du message - CLIENT.js
 */
 socket.on('reception_message', (message) => {
-    // Ici on gère l'affichage pour que les bonnes personnes reçoivent les messages qui leurs sont destinés
-    if (message.dest_ID === id_salon || id_salon === message.emet_id) {
-        var li = document.createElement("LI");
-        li.innerHTML = message.pseudo + " : " + message.msg;
-        messages.appendChild(li);
-    }
-
+    // On crée le tableau qui recense tout les messages
     lesMessages.push({
         pseudo: message.pseudo,
         message: message.msg,
         dest_ID: message.dest_ID,
-        emet_id: message.emet_id
+        emet_id: message.emet_id,
+        recu: message.recu
     });
+
+    salon(id_salon); // On gère l'affichage pour que les bonnes personnes reçoivent les messages qui leurs sont destinés
+    check_unread(); // Affichage des badges de notifications
+
     window.scrollTo(0, document.body.scrollHeight); // Permet de scroller automatiquement
 });
 
@@ -64,9 +63,19 @@ socket.on('get-pseudo', (userConnecter) => {
     userConnecter.forEach((element) => {
         var li = document.createElement("li");
         var a = document.createElement("a");
+
+        var notif = document.createElement("span");
+
+
+
         a.href = "#";
 
         a.setAttribute("onclick", "salon('" + element.id_users + "')");
+
+        notif.setAttribute("id", element.id_users);
+        notif.setAttribute("class", "badge badge-light")
+
+
 
         // console.log("Salon :", id_salon); // DEBUG MODE
 
@@ -74,7 +83,7 @@ socket.on('get-pseudo', (userConnecter) => {
         a.innerHTML = (socket.id !== element.id_users ? element.pseudo_client : null);
 
         // Même principe qu'à la ligne 60"
-        users.appendChild(li).appendChild(a);
+        users.appendChild(li).appendChild(a).appendChild(notif);
 
     });
 
@@ -95,14 +104,18 @@ function salon(id) {
 
     lesMessages.forEach((contenu) => {
         //console.log("destinataire : " + contenu.dest_ID + ", salon : " + id_salon); // DEBUG MODE
-
         // On coupe la condition en deux, la première partie est pour le salon général et la deuxième pour les messages privés
         if (contenu.dest_ID === id_salon || contenu.emet_id === id_salon && contenu.dest_ID !== "general") {
             var li = document.createElement("LI");
             li.innerHTML = contenu.pseudo + " : " + contenu.message;
             messages.appendChild(li);
+            contenu.recu = true;
         }
     })
+
+    if (id_salon !== 'general') {
+        document.getElementById(id_salon).innerHTML="";
+    }
 }
 
 /**
@@ -110,7 +123,19 @@ function salon(id) {
  * incrémentée à coté de l'utilisateur en question
  */
 function check_unread() {
-
+    // Tableau pour le compteur de messages de chaque utilisateur (via son ID)
+    var compteurs = [];
+    for(const contenu of lesMessages) {
+        if(contenu.dest_ID !== 'general' && contenu.recu === false) {
+            // Si l'entrée n'existe pas, on la crée
+            if(compteurs[contenu.dest_ID] === undefined) {
+                compteurs[contenu.dest_ID] = 0;
+            }
+            // Incrémentation du compteur, et écriture dans le badge
+            compteurs[contenu.dest_ID]++;
+            document.getElementById(contenu.emet_id).innerHTML=compteurs[contenu.dest_ID]
+        }
+    }
 }
 
 /**
