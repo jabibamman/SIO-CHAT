@@ -11,6 +11,9 @@ const users = document.getElementById('users'); // la liste users connecté
 const form = document.getElementById('form');
 const input = document.getElementById('input');
 
+const sidebar = document.getElementById("sidebar");
+
+
 /*
  Écouteur et envoi du message du formulaire
 */
@@ -67,10 +70,9 @@ socket.on('get-pseudo', (userConnecter) => {
         var notif = document.createElement("span");
 
 
-
         a.href = "#";
 
-        a.setAttribute("onclick", "salon('" + element.id_users + "')");
+        a.setAttribute("onclick", "salon('" + element.id_users + "'); closeSidebar()");
 
         notif.setAttribute("id", element.id_users);
         notif.setAttribute("class", "badge badge-light")
@@ -147,11 +149,23 @@ function disconnect () {
 
     if (result) {
         alert("Vous êtes déconnecté, reconnectez vous en rechargeant la page");
+
+        closeSidebar();
+
+        // Page qui ce crée qui demande a l'utilisateur si il souhaite se reconnecter
+        document.write("<h1 style='text-align: center; margin-top: 5em; color:red;'>Vous êtes déconnectés veuillez recharger la page</h1>" +
+            "<br><h2 style='text-align: center'>En cliquant <a href='http://127.0.0.1:8080'>ici</a></h2>");
+
         socket.disconnect();
     } else {
         alert("Vous êtes toujours connecté");
     }
-
 }
+
+/**
+ * Ferme la sidebar dès que la personne a choisis son salon
+ * S'il appuie sur le salon alors la sidebar ce ferme
+ */
+function closeSidebar() {sidebar.setAttribute("class", "sidebar");}
 
 

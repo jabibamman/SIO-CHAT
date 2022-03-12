@@ -17,6 +17,8 @@ body {
     backdrop-filter: blur(10px);
 }
 
+
+
 #input {
     border: none;
     padding: 0 1rem;
@@ -103,6 +105,8 @@ a:link {
         margin: 5em auto;
         width: 100%;
     }
+
+
 }
 
 @media (min-width: 768px) {
@@ -110,5 +114,10 @@ a:link {
         margin-top: 3em;
         margin-left: 9.5em;
     }
+
+    #form {
+        padding: 0.25rem 0.25rem 0.25rem 15rem;
+    }
+
 }
 
