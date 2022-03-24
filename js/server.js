@@ -35,8 +35,6 @@ app.use(session({
 app.use(express.json()); // Prise en charge du format JSON
 app.use(express.urlencoded({extended:true})); // Prise en charge des formulaires/entêtes HTML
 
-
-
 // Port d'écoute
 server.listen(PORT, () => {
     console.log('Serveur démarré sur le port : ' + PORT);
@@ -56,10 +54,16 @@ app.get('/salon', (req, res) => {
         // Si non, on affiche un message d'erreur
         res.send("Erreur, accès non autorisé  !");
     }
+    /*
     console.log(req.sessionID);
     console.log(req.session);
+    */
 });
 
+// Route page de login
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'login.html'));
+});
 // Route page de login
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'login.html'));
@@ -101,11 +105,6 @@ app.get('/login.css', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'css/login.css'));
 });
 
-// Route page login.js
-app.get('/login.js', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'js/login.js'));
-});
-
 // Route page Ultimate-Sidebar-Menu-BS5.js
 app.get('/Ultimate-Sidebar-Menu-BS5.js', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'js/Ultimate-Sidebar-Menu-BS5.js'));
@@ -127,9 +126,13 @@ app.get('/solvejgdesign_fond4k5.png', (req, res) => {
 });
 
 // Gestionnaire de connexion au salon
-app.post('/login', async(res,req)=>{
+app.post('/login', async(req,res)=>{
     /* TODO Code à compléter */
+    console.log("Login : " + req.body.login + "\n Password : " + req.body.password);
+
 });
+
+
 /**
  * Fonction qui va générer une couleur aléatoire pour chaque utilisateur
  */
