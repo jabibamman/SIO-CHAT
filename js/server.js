@@ -1,6 +1,22 @@
 // Configuration du serveur et des modules
 const express = require('express');
 const app = express();
+
+// Module Express-Session
+const session = require('express-session');
+
+// Module mariadb, et configuration connection au serveur
+const mariadb = require('mariadb');
+const db = mariadb.createPool({
+    host: '127.0.0.1',
+    user: 'root',
+    password: 'root',
+    database: 'sio_chat'
+});
+
+// Variable qui va contenir les infos de l'utilisateurs (chargé depuis la BDD)
+let infosUtilisateur;
+
 const http = require('http');
 const server = http.createServer(app);
 const {Server} = require("socket.io");
@@ -8,6 +24,18 @@ const io = new Server(server);
 var path = require("path");
 const PORT = 8080;
 var allMsg = [];
+
+// Propriétés session Express + prise en charge données réseau
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+}));
+
+app.use(express.json()); // Prise en charge du format JSON
+app.use(express.urlencoded({extended:true})); // Prise en charge des formulaires/entêtes HTML
+
+
 
 // Port d'écoute
 server.listen(PORT, () => {
@@ -19,8 +47,22 @@ server.listen(PORT, () => {
 */
 
 // Route page d'accueil
+app.get('/salon', (req, res) => {
+    // On vérifie s'il y a bien une connexion
+    if(req.session.loggedin){
+        // Si oui, on charge la page du salon de discussion
+        res.sendFile(path.join(__dirname, '..', 'index.html'));
+    }else{
+        // Si non, on affiche un message d'erreur
+        res.send("Erreur, accès non autorisé  !");
+    }
+    console.log(req.sessionID);
+    console.log(req.session);
+});
+
+// Route page de login
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'index.html'));
+    res.sendFile(path.join(__dirname, '..', 'login.html'));
 });
 
 // Route client.js
@@ -38,9 +80,30 @@ app.get('/bootstrap.min.css', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'css/bootstrap.min.css'));
 });
 
+// Route page Animated-CSS-Waves-Background-SVG.css
+app.get('/Animated-CSS-Waves-Background-SVG.css', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'css/Animated-CSS-Waves-Background-SVG.css'));
+});
+
+// Route page Login-Box-En.css
+app.get('/Login-Box-En.css', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'css/Login-Box-En.css'));
+});
+
+
 // Route page boostrap.min.js
 app.get('/bootstrap.min.js', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'js/bootstrap.min.js'));
+});
+
+// Route page login.css
+app.get('/login.css', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'css/login.css'));
+});
+
+// Route page login.js
+app.get('/login.js', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'js/login.js'));
 });
 
 // Route page Ultimate-Sidebar-Menu-BS5.js
@@ -53,7 +116,20 @@ app.get('/Ultimate-Sidebar-Menu-BS5.css', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'css/Ultimate-Sidebar-Menu-BS5.css'));
 });
 
+// Route vers HPfrKl.png
+app.get('/HPfrKl.png', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'img/HPfrKl.png'));
+});
 
+// Route vers solvejgdesign_fond4k5.png
+app.get('/solvejgdesign_fond4k5.png', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'img/solvejgdesign_fond4k5.png'));
+});
+
+// Gestionnaire de connexion au salon
+app.post('/login', async(res,req)=>{
+    /* TODO Code à compléter */
+});
 /**
  * Fonction qui va générer une couleur aléatoire pour chaque utilisateur
  */
