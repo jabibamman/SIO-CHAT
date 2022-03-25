@@ -1,9 +1,6 @@
 // Création du socket
 const socket = io();
 
-// Sélection du pseudo
-socket.emit('set-pseudo', prompt("Pseudo ?"));
-
 // Variables pour récupérer les éléments HTML
 const messages = document.getElementById('messages'); // la liste messages
 const users = document.getElementById('users'); // la liste users connecté
@@ -14,6 +11,7 @@ const input = document.getElementById('input');
 const sidebar = document.getElementById("sidebar");
 
 
+let id_salon;
 /*
  Écouteur et envoi du message du formulaire
 */
@@ -29,6 +27,9 @@ form.addEventListener('submit', (e) => {
     }
 
 });
+
+ // Variable qui va définir un destinataire, par défaut le salon général
+let lesMessages = []; // Tableau qui va contenir l'ensemble des messages envoyés (semi-persistance)
 
 /*
  Réception et affichage du message - CLIENT.js
@@ -52,8 +53,8 @@ socket.on('reception_message', (message) => {
 socket.on('get-pseudo', (userConnecter) => {
     users.innerHTML = "";
 
-    var salon_li = document.createElement("li");
-    var salon_a = document.createElement("a");
+    const salon_li = document.createElement("li");
+    const salon_a = document.createElement("a");
 
 
     // On met un id à salon ce qui donnera <li id="salon">Salon</li>
@@ -64,10 +65,11 @@ socket.on('get-pseudo', (userConnecter) => {
 
     // BOUCLE POUR CHAQUE PERMET DE CRÉER LE LI ET D'IMPLÉMENTER AUTOMATIQUEMENT UTILISATEURS CONNECTÉS ET DÉCONNECTÉS
     userConnecter.forEach((element) => {
-        var li = document.createElement("li");
-        var a = document.createElement("a");
+        console.log(element);
+        const li = document.createElement("li");
+        const a = document.createElement("a");
 
-        var notif = document.createElement("span");
+        const notif = document.createElement("span");
 
 
         a.href = "#";
@@ -91,8 +93,7 @@ socket.on('get-pseudo', (userConnecter) => {
 
 });
 
-var id_salon = 'general'; // Variable qui va définir un destinataire, par défaut le salon général
-var lesMessages = []; // Tableau qui va contenir l'ensemble des messages envoyés (semi-persistance)
+id_salon = 'general';
 
 /**
  * Affichage des messages en fonction du choix de l'utilisateur :
@@ -108,7 +109,7 @@ function salon(id) {
         //console.log("destinataire : " + contenu.dest_ID + ", salon : " + id_salon); // DEBUG MODE
         // On coupe la condition en deux, la première partie est pour le salon général et la deuxième pour les messages privés
         if (contenu.dest_ID === id_salon || contenu.emet_id === id_salon && contenu.dest_ID !== "general") {
-            var li = document.createElement("LI");
+            const li = document.createElement("LI");
             li.innerHTML = contenu.pseudo + " : " + contenu.message;
             messages.appendChild(li);
             contenu.recu = true;
@@ -126,7 +127,7 @@ function salon(id) {
  */
 function check_unread() {
     // Tableau pour le compteur de messages de chaque utilisateur (via son ID)
-    var compteurs = [];
+    const compteurs = [];
     for(const contenu of lesMessages) {
         if(contenu.dest_ID !== 'general' && contenu.recu === false) {
             // Si l'entrée n'existe pas, on la crée
@@ -145,7 +146,7 @@ function check_unread() {
  * Si il appuie sur ok, son socket sera déconnecté
  */
 function disconnect () {
-    var result = confirm("Vous voulez déconnecter ?");
+    const result = confirm("Vous voulez déconnecter ?");
 
     if (result) {
         alert("Vous êtes déconnecté, reconnectez vous en rechargeant la page");

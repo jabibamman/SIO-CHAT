@@ -69,10 +69,11 @@
 Lors de la mise en place de ce projet je me suis inspiré d'une autre application de messagerie nommée Discord.</p>
 
 [![Product Name Screen Shot][product-screenshot2]](https://abib-james.fr)
-<p>Le but final de ce projet est de pouvoir avoir des utilisateurs persistants c'est à dire qu'ils restent enregitré dans une base de donnée durant de la déconnexion et même lors d'une reconnexion d'un utilisateur.</p>
+<p>Comme nous le voyons ici j'ai pu mettre en place des utilisateurs persistants. C'est à dire qu'ils restent enregitré dans la base de donnée durant de la déconnexion et même lors d'une reconnexion d'un utilisateur (via login/mot de passe).</p>
 
-<p>Par la suite, il faudra connecter l'application à une base de donnée afin de permettre une sauvegarde des messages
-envoyés. Il y aura une page de <a href="#screenshot-login">login/mot de passe</a> pour les utilisateurs.</p>
+[![Product Name Screen Shot][product-screenshot3]](https://abib-james.fr)
+
+<p>Page d'erreur 403 quand le client cherche à utiliser le chat de discussion sans être connecté</p>
 
 <p align="right">(<a href="#top">retourner en haut</a>)</p>
 
@@ -137,8 +138,9 @@ Installer la dernière version de npm si ce n'est pas déjà fait :
 - [✅] Application responsive (Bootstrap)
 - [✅] Messages privés entre utilisateurs
     - [✅] Notifications lors d'un message privé
-- [❌] Mise en place d'une base de donnée
-    - - [❌] Persistance des messages
+- [✅] Mise en place d'une base de donnée
+    - [✅] Connexion au chat via un login/mot de passe
+    - [❌] Persistance des messages
 
 Voir les [problèmes ouverts](https://github.com/github_username/repo_name/issues) pour une liste complète des fonctionnalités proposées (et des problèmes connus).
 
@@ -203,4 +205,5 @@ Project Link: [https://github.com/jabibamman/SIO-CHAT](https://github.com/jabiba
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/jamesabib
 [product-screenshot1]: img/screenshot.png
-[product-screenshot2]: img/connexion.png
+[product-screenshot2]: img/login.png
+[product-screenshot3]: img/403.png
