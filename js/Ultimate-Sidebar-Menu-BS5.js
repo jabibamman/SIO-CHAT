@@ -1,11 +1,13 @@
 (function(document) {
     "use strict";
 
+    // Get the sidebar menu
     const ready = (callback) => {
         if (document.readyState !== "loading") callback();
         else document.addEventListener("DOMContentLoaded", callback);
     }
 
+    // Get all the sidebar menu items
     ready(() => {
         const dismiss = document.querySelector(".dismiss"),
             sidebar = document.querySelector(".sidebar"),

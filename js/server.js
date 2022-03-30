@@ -17,6 +17,7 @@ const db = mariadb.createPool({
 // Variable qui va contenir les infos de l'utilisateur (chargé depuis la BDD)
 let infosUtilisateur;
 
+// Configuration du serveur
 const http = require('http');
 const server = http.createServer(app);
 const {Server} = require("socket.io");
@@ -57,8 +58,8 @@ app.get('/salon', (req, res) => {
 
     }
     /*
-    console.log(req.sessionID);
-    console.log(req.session);
+    console.log(req.sessionID); // ID de la session
+    console.log(req.session); // Contenu de la session
     */
 });
 
@@ -188,7 +189,7 @@ io.on('connection', (socket) => {
     socket.pseudo = "<b style=\"color:" + generateColor() + "\">" + infosUtilisateur.pseudo + "</b>";
     const pseudoLog = infosUtilisateur.pseudo;
 
-    // On envoie un message de bienvenue à l'utilisateur
+    // LOG : On envoie un message de bienvenue à l'utilisateur
     console.log(`${pseudoLog} vient de se connecter à ${new Date()}`);
 
     // Récupération de la liste des utilisateurs (Sockets) connectés
@@ -202,15 +203,15 @@ io.on('connection', (socket) => {
             userConnecter.push({
                 id_users: item.id, pseudo_client: item.pseudo
             });
-            console.log(userConnecter)
+            // console.log(userConnecter) // DEBUG : Affiche la liste des utilisateurs connectés
         });
         io.emit('get-pseudo', userConnecter);
     });
 
 
-        /*
-         Socket pour l'émission/reception des messages et socket id - SERVER.js
-        */
+    /*
+     Socket pour l'émission/reception des messages et socket id - SERVER.js
+    */
     socket.on('emission_message', (message, id) => {
 
         // LOG DE MESSAGES

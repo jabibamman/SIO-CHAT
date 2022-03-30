@@ -51,6 +51,7 @@ socket.on('reception_message', (message) => {
 });
 
 socket.on('get-pseudo', (userConnecter) => {
+    // On met à zéro le tableau des utilisateurs connectés
     users.innerHTML = "";
 
     const salon_li = document.createElement("li");
@@ -65,10 +66,10 @@ socket.on('get-pseudo', (userConnecter) => {
 
     // BOUCLE POUR CHAQUE PERMET DE CRÉER LE LI ET D'IMPLÉMENTER AUTOMATIQUEMENT UTILISATEURS CONNECTÉS ET DÉCONNECTÉS
     userConnecter.forEach((element) => {
-        console.log(element);
+        // console.log(element); // DEBUG : Affiche les données de chaque utilisateur connecté
+
         const li = document.createElement("li");
         const a = document.createElement("a");
-
         const notif = document.createElement("span");
 
 
@@ -93,8 +94,8 @@ socket.on('get-pseudo', (userConnecter) => {
 
 });
 
+// De base on affiche le salon général
 id_salon = 'general';
-
 /**
  * Affichage des messages en fonction du choix de l'utilisateur :
  * @param {string} id - L'id du salon choisis.
@@ -102,7 +103,10 @@ id_salon = 'general';
  * - Soit les messages d'une conversation privée avec un autre utilisateur
  */
 function salon(id) {
+    // On affecte l'id du salon choisi à id_salon
     id_salon = id;
+
+    // On vide la liste des messages
     messages.innerHTML = "";
 
     lesMessages.forEach((contenu) => {
@@ -126,16 +130,22 @@ function salon(id) {
  * incrémentée à coté de l'utilisateur en question
  */
 function check_unread() {
-    // Tableau pour le compteur de messages de chaque utilisateur (via son ID)
+    // Tableau qui va contient le nombre de messages non-lus pour chaque utilisateurs
     const compteurs = [];
+
+    // On parcourt le tableau de messages
     for(const contenu of lesMessages) {
+
+        // Si l'utilisateur n'a pas encore reçu le message
         if(contenu.dest_ID !== 'general' && contenu.recu === false) {
-            // Si l'entrée n'existe pas, on la crée
+            // Si l'entrée n'existe pas, alors on l'ajoute
             if(compteurs[contenu.dest_ID] === undefined) {
                 compteurs[contenu.dest_ID] = 0;
             }
             // Incrémentation du compteur, et écriture dans le badge
             compteurs[contenu.dest_ID]++;
+
+            // On affiche le badge
             document.getElementById(contenu.emet_id).innerHTML=compteurs[contenu.dest_ID]
         }
     }
@@ -146,9 +156,7 @@ function check_unread() {
  * Si il appuie sur ok, son socket sera déconnecté
  */
 function disconnect () {
-    const result = confirm("Vous voulez déconnecter ?");
-
-    if (result) {
+    if (confirm("Vous voulez déconnecter ?")) {
         alert("Vous êtes déconnecté, reconnectez vous en rechargeant la page");
 
         closeSidebar();
