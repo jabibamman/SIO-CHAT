@@ -11,8 +11,9 @@ const mariadb = require('mariadb');
 const db = mariadb.createPool({
     host: '127.0.0.1',
     user: 'root',
-    password: 'root',
+    password: '',
     database: 'sio_chat'
+    //,port : '3307' // Rajouter le port si le port par défaut (3306) n'est pas utilisé
 });
 
 // Variable qui va contenir les infos de l'utilisateur (chargé depuis la BDD)
