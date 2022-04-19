@@ -54,6 +54,7 @@ const timeoutID = setTimeout(() => {
 
 // define the function which updates the position of the absolute-positioned key according to the mouse coordinates (and the keys own dimensions)
 const updateKeyPosition = (e) => {
+    // retrieve the mouse coordinates
     let x = e.clientX;
     let y = e.clientY;
     key.style.left = x - keyBox.width/1.5;

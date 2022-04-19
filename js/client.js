@@ -10,8 +10,8 @@ const input = document.getElementById('input');
 
 const sidebar = document.getElementById("sidebar");
 
-
 let id_salon;
+
 /*
  Écouteur et envoi du message du formulaire
 */
@@ -28,7 +28,7 @@ form.addEventListener('submit', (e) => {
 
 });
 
- // Variable qui va définir un destinataire, par défaut le salon général
+// Variable qui va définir un destinataire, par défaut le salon général
 let lesMessages = []; // Tableau qui va contenir l'ensemble des messages envoyés (semi-persistance)
 
 /*
@@ -54,11 +54,13 @@ socket.on('get-pseudo', (userConnecter) => {
     // On met à zéro le tableau des utilisateurs connectés
     users.innerHTML = "";
 
+    // On crée une <li> et un <a>
     const salon_li = document.createElement("li");
     const salon_a = document.createElement("a");
 
 
     // On met un id à salon ce qui donnera <li id="salon">Salon</li>
+    // On crée donc pour chaque pseudo un lien qui va permettre de changer de salon
     salon_li.setAttribute("id", id_salon);
 
     // <li><a>Exemple de l'appendChild utilisé</a></li>
@@ -68,6 +70,7 @@ socket.on('get-pseudo', (userConnecter) => {
     userConnecter.forEach((element) => {
         // console.log(element); // DEBUG : Affiche les données de chaque utilisateur connecté
 
+        // On crée une <li>, un <a> et un <span>
         const li = document.createElement("li");
         const a = document.createElement("a");
         const notif = document.createElement("span");
@@ -75,8 +78,10 @@ socket.on('get-pseudo', (userConnecter) => {
 
         a.href = "#";
 
+        // Dès qu'on clique sur un utilisateur ou un salon, la sidebar va se replier
         a.setAttribute("onclick", "salon('" + element.id_users + "'); closeSidebar()");
 
+        // Chaque utilisateur a un badge, qui s'affichera quand il n'aura pas lu un message
         notif.setAttribute("id", element.id_users);
         notif.setAttribute("class", "badge badge-light")
 
@@ -111,7 +116,7 @@ function salon(id) {
 
     lesMessages.forEach((contenu) => {
         //console.log("destinataire : " + contenu.dest_ID + ", salon : " + id_salon); // DEBUG MODE
-        // On coupe la condition en deux, la première partie est pour le salon général et la deuxième pour les messages privés
+        // Pour chaque message, on vérifie si le message est destiné au salon général ou à un salon privé
         if (contenu.dest_ID === id_salon || contenu.emet_id === id_salon && contenu.dest_ID !== "general") {
             const li = document.createElement("LI");
             li.innerHTML = contenu.pseudo + " : " + contenu.message;
@@ -120,6 +125,7 @@ function salon(id) {
         }
     })
 
+    // On va remettre à zéro les badges de notification
     if (id_salon !== 'general') {
         document.getElementById(id_salon).innerHTML="";
     }
@@ -130,7 +136,7 @@ function salon(id) {
  * incrémentée à coté de l'utilisateur en question
  */
 function check_unread() {
-    // Tableau qui va contient le nombre de messages non-lus pour chaque utilisateurs
+    // Compteurs de messages non-lus
     const compteurs = [];
 
     // On parcourt le tableau de messages
@@ -138,14 +144,14 @@ function check_unread() {
 
         // Si l'utilisateur n'a pas encore reçu le message
         if(contenu.dest_ID !== 'general' && contenu.recu === false) {
-            // Si l'entrée n'existe pas, alors on l'ajoute
+            // Si le compteur n'existe pas, on le crée
             if(compteurs[contenu.dest_ID] === undefined) {
                 compteurs[contenu.dest_ID] = 0;
             }
-            // Incrémentation du compteur, et écriture dans le badge
+            // On incrémente le compteur, puis on affiche le badge avec le nombre de messages non-lus
             compteurs[contenu.dest_ID]++;
 
-            // On affiche le badge
+            // On affiche le badge dans la sidebar
             document.getElementById(contenu.emet_id).innerHTML=compteurs[contenu.dest_ID]
         }
     }
@@ -156,17 +162,21 @@ function check_unread() {
  * Si il appuie sur ok, son socket sera déconnecté
  */
 function disconnect () {
+    // On demande confirmation à l'utilisateur
     if (confirm("Vous voulez déconnecter ?")) {
         alert("Vous êtes déconnecté, reconnectez vous en rechargeant la page");
 
+        // On ferme la sidebar
         closeSidebar();
 
         // Page qui ce crée qui demande a l'utilisateur si il souhaite se reconnecter
         document.write("<h1 style='text-align: center; margin-top: 5em; color:red;'>Vous êtes déconnectés veuillez recharger la page</h1>" +
             "<br><h2 style='text-align: center'>En cliquant <a href='http://127.0.0.1:8080'>ici</a></h2>");
 
-        socket.disconnect();
+        // On déconnecte le socket
+        socket.destroy();
     } else {
+        // Si l'utilisateur ne veut pas se déconnecter, on ne fait rien
         alert("Vous êtes toujours connecté");
     }
 }

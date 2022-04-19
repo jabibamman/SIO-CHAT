@@ -7,6 +7,7 @@ const session = require('express-session');
 
 // Module mariadb, et configuration connection au serveur
 const mariadb = require('mariadb');
+// Connection à la base de données
 const db = mariadb.createPool({
     host: '127.0.0.1',
     user: 'root',
@@ -249,8 +250,10 @@ io.on('connection', (socket) => {
         // LOG DE DÉCONNEXION
         let pseudoDisconnected // Variable créée pour éviter erreur de code
 
+        // On récupère le pseudo de l'utilisateur qui se déconnecte
         socket._onclose( pseudoDisconnected = pseudoLog);
 
+        // Affichage de la personne qui se déconnecte
         console.log(pseudoDisconnected + " viens de ce déconnecter à " + new Date ());
 
         // PERMET D'AFFICHER LES PERSONNES CONNECTÉS EN LOG
@@ -258,6 +261,7 @@ io.on('connection', (socket) => {
 
         // Récupération de la liste des utilisateurs (Sockets) connectés
         io.fetchSockets().then((room) => {
+            // On crée un premier utilisateur nommé salon, retournant l'id 'general' a chaque fois
             let userConnecter = [{id_users: 'general', pseudo_client: 'Salon'}];
 
             // À chaque déconnexion les utilisateurs dans le tableau
