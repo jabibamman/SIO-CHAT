@@ -7,7 +7,7 @@ const session = require('express-session');
 
 // Module mariadb, et configuration connection au serveur
 const mariadb = require('mariadb');
-// Connection à la base de données
+// connexion à la base de données
 const db = mariadb.createPool({
     host: '127.0.0.1',
     user: 'root',
