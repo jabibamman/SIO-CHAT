@@ -11,9 +11,9 @@ const mariadb = require('mariadb');
 const db = mariadb.createPool({
     host: '127.0.0.1',
     user: 'root',
-    password: 'root',
+    password: '',
     database: 'sio_chat'
-    //,port : '3307' // Rajouter le port si le port par défaut (3306) n'est pas utilisé
+    //, port: '3307' // Rajouter le port si le port par défaut (3306) n'est pas utilisé
 });
 
 // Variable qui va contenir les infos de l'utilisateur (chargé depuis la BDD)
@@ -244,6 +244,9 @@ io.on('connection', (socket) => {
 
     });
 
+    /*
+     Socket pour le bloquage des messages - SERVER.js
+    */
     socket.on("bloquer", (id_user, id_bloquer) => {
         console.log(socket.id + " bloque " + id_bloquer);
 
@@ -255,13 +258,14 @@ io.on('connection', (socket) => {
 
             // À chaque déconnexion les utilisateurs dans le tableau
             room.forEach((item) => {
-                if (socket.id !== item.id || id_user !== item.id) {
-                    userConnecter.push({
+                if (socket.id !== item.id || id_user !== item.id || id_bloquer !== item.id || socket.id === id_bloquer) {
+                    userConnecter.push ({
                         id_users: item.id, pseudo_client: socket.pseudo
                     });
                 }
             });
 
+            console.log (userConnecter);
             io.emit('get-pseudo', userConnecter);
         });
     });

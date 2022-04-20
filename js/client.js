@@ -81,10 +81,10 @@ socket.on('get-pseudo', (userConnecter) => {
 
         // Dès qu'on clique sur un utilisateur ou un salon, la sidebar va se replier
         a.setAttribute("onclick", "salon('" + element.id_users + "'); closeSidebar()");
-        a.setAttribute("id", element.id_users);
+        li.setAttribute("id", element.id_users);
 
         // Chaque utilisateur a un badge, qui s'affichera quand il n'aura pas lu un message
-        notif.setAttribute("id", element.id_users);
+        notif.setAttribute("id", element.id_users+"_notif");
         notif.setAttribute("class", "badge badge-light")
 
 
@@ -100,29 +100,34 @@ socket.on('get-pseudo', (userConnecter) => {
 
         let id_body_user = document.getElementById(element.id_users); // On récupère l'id de l'utilisateur connecté
 
+        // Nom user formalisé
+        let pseudo_client_formatted = element.pseudo_client.substring(element.pseudo_client.indexOf(">") + 1, element.pseudo_client.length-4);
+
+        // On met un écouteur sur chaque clique droit sur chaque utilisateur
         id_body_user.addEventListener('contextmenu', e => {
             e.preventDefault();
-            console.log(e)
-            e.preventDefault();
-            console.log("Clic droit sur " + element.pseudo_client);
-            if (confirm("Voulez vous bloquer : " + element.pseudo_client + " ?")) {
-                alert("Vous avez bloqué " + element.pseudo_client);
+
+            // console.log("Clic droit sur " + pseudo_client_formatted); // DEBUG MODE : Affiche le pseudo de l'utilisateur cliqué
+            if (confirm("Voulez vous bloquer : " + pseudo_client_formatted + " ?")) {
+                alert("Vous avez bloqué " + pseudo_client_formatted);
                 userConnecter.pop(element.id_users);
+                salon('general')
                 socket.emit('bloquer', socket.id ,element.id_users);
             }
         });
     });
 
-
-
 });
 
+/*
+ Lorsqu'une personne est bloquée - CLIENT.js
+*/
 
 socket.on('est_bloquer', (id_users) => {
     console.log(id_users +" vous à bloqué");
     alert(id_users +" vous à bloqué");
     // Delete bloquer du tableau
-    users.pop(id_users);
+    salon('general')
     //userConnecter.pop(id_users);
 });
 
@@ -161,7 +166,7 @@ function salon(id) {
 
     // On va remettre à zéro les badges de notification
     if (id_salon !== 'general') {
-        document.getElementById(id_salon).innerHTML="";
+        document.getElementById(id_salon+"_notif").innerHTML="";
     }
 }
 
@@ -186,7 +191,7 @@ function check_unread() {
             compteurs[contenu.dest_ID]++;
 
             // On affiche le badge dans la sidebar
-            document.getElementById(contenu.emet_id).innerHTML=compteurs[contenu.dest_ID]
+            document.getElementById(contenu.emet_id+"_notif").innerHTML=compteurs[contenu.dest_ID]
         }
     }
 }
