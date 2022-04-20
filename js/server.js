@@ -244,6 +244,28 @@ io.on('connection', (socket) => {
 
     });
 
+    socket.on("bloquer", (id_user, id_bloquer) => {
+        console.log(socket.id + " bloque " + id_bloquer);
+
+        io.to(id_bloquer).emit("est_bloquer", socket.id);
+
+        io.fetchSockets().then((room) => {
+            // On crée un premier utilisateur nommé salon, retournant l'id 'general' a chaque fois
+            let userConnecter = [{id_users: 'general', pseudo_client: 'Salon'}];
+
+            // À chaque déconnexion les utilisateurs dans le tableau
+            room.forEach((item) => {
+                if (socket.id !== item.id || id_user !== item.id) {
+                    userConnecter.push({
+                        id_users: item.id, pseudo_client: socket.pseudo
+                    });
+                }
+            });
+
+            io.emit('get-pseudo', userConnecter);
+        });
+    });
+
     /*
      Socket pour informer la déconnexion
     */

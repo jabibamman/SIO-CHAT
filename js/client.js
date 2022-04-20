@@ -76,10 +76,12 @@ socket.on('get-pseudo', (userConnecter) => {
         const notif = document.createElement("span");
 
 
+        console.log(element); // DEBUG : Affiche l'id de chaque utilisateur connecté
         a.href = "#";
 
         // Dès qu'on clique sur un utilisateur ou un salon, la sidebar va se replier
         a.setAttribute("onclick", "salon('" + element.id_users + "'); closeSidebar()");
+        a.setAttribute("id", element.id_users);
 
         // Chaque utilisateur a un badge, qui s'affichera quand il n'aura pas lu un message
         notif.setAttribute("id", element.id_users);
@@ -95,9 +97,41 @@ socket.on('get-pseudo', (userConnecter) => {
         // Même principe qu'à la ligne 60"
         users.appendChild(li).appendChild(a).appendChild(notif);
 
+
+        let id_body_user = document.getElementById(element.id_users); // On récupère l'id de l'utilisateur connecté
+
+        id_body_user.addEventListener('contextmenu', e => {
+            e.preventDefault();
+            console.log(e)
+            e.preventDefault();
+            console.log("Clic droit sur " + element.pseudo_client);
+            if (confirm("Voulez vous bloquer : " + element.pseudo_client + " ?")) {
+                alert("Vous avez bloqué " + element.pseudo_client);
+                userConnecter.pop(element.id_users);
+                socket.emit('bloquer', socket.id ,element.id_users);
+            }
+        });
     });
 
+
+
 });
+
+
+socket.on('est_bloquer', (id_users) => {
+    console.log(id_users +" vous à bloqué");
+    alert(id_users +" vous à bloqué");
+    // Delete bloquer du tableau
+    users.pop(id_users);
+    //userConnecter.pop(id_users);
+});
+
+
+
+
+
+
+
 
 // De base on affiche le salon général
 id_salon = 'general';
