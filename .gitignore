@@ -1,16 +1,7 @@
 *.log
 
 # Ignore picture of user
-img/user/*.png
-img/user/*.jpg
-img/user/*.gif
-img/user/*.jpeg
-img/user/*.bmp
-img/user/*.ico
-img/user/*.svg
-img/user/*.webp
-img/user/*.webm
-
+img/user/
 # Ignore node_modules
 node_modules/
 
