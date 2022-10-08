@@ -139,12 +139,9 @@ Optionnal
 {
   "saveImage": {
     "value": true,
-    // false pour désactiver
+
     "path": "../img/user/"
-    // chemin vers le dossier où les images seront enregistrées
   }
-
-
 ```
 
 <p align="right">(<a href="#top">retourner en haut</a>)</p>
