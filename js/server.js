@@ -135,16 +135,6 @@ app.get('/403.js', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'js/403.js'));
 });
 
-// Route vers HPfrKl.png
-app.get('/HPfrKl.png', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'img/HPfrKl.png'));
-});
-
-// Route vers solvejgdesign_fond4k5.png
-app.get('/solvejgdesign_fond4k5.png', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'img/solvejgdesign_fond4k5.png'));
-});
-
 // Gestionnaire de connexion au salon
 app.post('/login', async(req,res)=>{
     // Connexion à la BDD
@@ -258,41 +248,52 @@ io.on('connection', (socket) => {
             });
             // console.log(userConnecter) // DEBUG : Affiche la liste des utilisateurs connectés
         });
-        io.emit('get-pseudo', userConnecter);
+        io.emit ('get-pseudo', userConnecter);
     });
 
 
     /*
      Socket pour l'émission/reception des messages et socket id - SERVER.js
     */
-    socket.on('emission_message', (message, id) => {
 
-        // LOG DE MESSAGES
-        Logger(`${pseudoLog} à écrit : ${message},  émetteur : ${socket.id},  destinataire : ${id}`, "message");
-        const laDate = new Date();
+    // On recupere ausssi les images
+    socket.on ('emission_message',
+        (message, image, id) => {
 
-        // Mis en format JSON
-        let unMessage = {
-            emet_id: socket.id,
-            dest_ID: id,
-            pseudo: socket.pseudo,
-            msg: message,
-            date: laDate.toLocaleDateString() + ' - ' + laDate.toLocaleTimeString(),
-            recu: false
-        };
+            // LOG DE MESSAGES
+            Logger (`${pseudoLog} à écrit : ${message},  émetteur : ${socket.id},  destinataire : ${id}`, "message");
+            const laDate = new Date ();
 
-        /*
-         On envoie le message aux bonnes personnes, dans le salon général tout le monde le reçois,
-         mais pour les messages privés seul l'émetteur et le destinataire reçoivent le message.
-        */
-        if (id === "general") {
-            io.emit('reception_message', unMessage);
+            // [OPTIONAL] Pour enregistrer les messages dans le serveur
+            if (config["save-images"].value === true && image !== null) {
+                const splitted = image.split (';base64,');
+                const format = splitted[0].split ('/')[1];
+                fs.writeFileSync (config["save-images"].path + laDate.getTime () + '_' + pseudoLog + '.' + format, splitted[1], 'base64');
+            }
 
-        } else {
-            io.to(id).to(socket.id).emit('reception_message', unMessage);
-        }
+            // Mis en format JSON
+            let unMessage = {
+                emet_id: socket.id,
+                dest_ID: id,
+                pseudo: socket.pseudo,
+                msg: message,
+                image: image,
+                date: laDate.toLocaleDateString () + ' - ' + laDate.toLocaleTimeString (),
+                recu: false
+            };
 
-    });
+            /*
+             On envoie le message aux bonnes personnes, dans le salon général tout le monde le reçois,
+             mais pour les messages privés seul l'émetteur et le destinataire reçoivent le message.
+            */
+            if (id === "general") {
+                io.emit ('reception_message', unMessage);
+
+            } else {
+                io.to (id).to (socket.id).emit ('reception_message', unMessage);
+            }
+
+        });
 
     /*
      Socket pour le bloquage des messages - SERVER.js

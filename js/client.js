@@ -17,14 +17,36 @@ let id_salon;
 */
 form.addEventListener('submit', (e) => {
     // Cette utilisation de preventDefault() sert à éviter de recharger la page a chaque envoie de message
-    e.preventDefault();
+    e.preventDefault ();
 
-    // Ça veut dire qu'un client ne peut pas envoyer de message vide…
-    if (input.value !== '') {
-        socket.emit('emission_message', input.value, id_salon);
+    let temp;
+    if (input.value !== '' && document.getElementById ('file').files[0] != null) {
+        const file = document.getElementById ('file').files[0];
+        const reader = new FileReader ();
 
+        temp = input.value;
+        reader.onloadend = function () {
+            socket.emit ('emission_message', temp, reader.result, id_salon);
+        }
+        reader.readAsDataURL (file);
+
+        // On vide les champs de saisie
+        input.value = '';
+        document.getElementById ('file').value = '';
+    } else if (input.value !== '') {
+        socket.emit ('emission_message', input.value, null, id_salon);
         input.value = ''; // Supprimer l'ancienne valeur pour réécrire un message
+    } else if (document.getElementById ('file').files[0] != null) {
+        const file = document.getElementById ('file').files[0];
+        const reader = new FileReader ();
+        reader.onloadend = function () {
+            socket.emit ('emission_message', '', reader.result, id_salon);
+        }
+        reader.readAsDataURL (file);
+
+        document.getElementById ('file').value = '';
     }
+
 
 });
 
@@ -41,6 +63,7 @@ socket.on('reception_message', (message) => {
         message: message.msg,
         dest_ID: message.dest_ID,
         emet_id: message.emet_id,
+        image: message.image,
         recu: message.recu
     });
 
@@ -76,7 +99,7 @@ socket.on('get-pseudo', (userConnecter) => {
         const notif = document.createElement("span");
 
 
-        console.log(element); // DEBUG : Affiche l'id de chaque utilisateur connecté
+        //console.log(element); // DEBUG : Affiche l'id de chaque utilisateur connecté
         a.href = "#";
 
         // Dès qu'on clique sur un utilisateur ou un salon, la sidebar va se replier
@@ -124,19 +147,12 @@ socket.on('get-pseudo', (userConnecter) => {
 */
 
 socket.on('est_bloquer', (id_users) => {
-    console.log(id_users +" vous à bloqué");
+    //console.log(id_users +" vous à bloqué");
     alert(id_users +" vous à bloqué");
     // Delete bloquer du tableau
     salon('general')
     //userConnecter.pop(id_users);
 });
-
-
-
-
-
-
-
 
 // De base on affiche le salon général
 id_salon = 'general';
@@ -157,10 +173,20 @@ function salon(id) {
         //console.log("destinataire : " + contenu.dest_ID + ", salon : " + id_salon); // DEBUG MODE
         // Pour chaque message, on vérifie si le message est destiné au salon général ou à un salon privé
         if (contenu.dest_ID === id_salon || contenu.emet_id === id_salon && contenu.dest_ID !== "general") {
-            const li = document.createElement("LI");
+
+            //console.log(contenu); // DEBUG MODE
+            const li = document.createElement ("LI");
             li.innerHTML = contenu.pseudo + " : " + contenu.message;
-            messages.appendChild(li);
+            messages.appendChild (li);
             contenu.recu = true;
+            if (contenu.image) {
+                const img = document.createElement ("img");
+                img.src = contenu.image;
+                img.setAttribute ("class", "img-fluid");
+                img.setAttribute ("alt", "Responsive image");
+                // réduire la taille de l'image
+                messages.appendChild (img);
+            }
         }
     })
 

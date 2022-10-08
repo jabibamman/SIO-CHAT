@@ -105,27 +105,57 @@ Installer la dernière version de npm si ce n'est pas déjà fait :
 
 ### Installation
 
-1. Cloner le repo Git
+1. Clonez le repo Git
    ```sh
    git clone https://github.com/jabibamman/SIO-CHAT.git
    ```
-3. Installer les packages NPM 
+3. Installez les packages NPM
    ```sh
    npm install
    ```
-4. Entrer votre port dans `server.js`
-   ```js
-   const PORT = 'ENTREZ VOTRE PORT';
-   ```
+4. Entrez votre config dans `js/config/conf.json`
+
+```json
+
+"db": {
+"host": "localhost",
+"port": 3307,
+"user": "root",
+"password": "",
+"database": "sio_chat"
+},
+"server": {
+"port": "3000"
+}
+
+```
+
+Optionnal
+
+4. Pour activer/désactiver l'enregistrement des images envoyés par les utilisateurs, il faut modifier la valeur
+   de `saveImage` dans `js/config/conf.json`
+
+```json
+{
+  "saveImage": {
+    "value": true,
+    // false pour désactiver
+    "path": "../img/user/"
+    // chemin vers le dossier où les images seront enregistrées
+  }
+
+
+```
 
 <p align="right">(<a href="#top">retourner en haut</a>)</p>
 
 
 
 <!-- USAGE EXAMPLES -->
+
 ## Exemple d'utilisation
 
- Pour plus d'exemples, veuillez vous référer à la [Documentation](https://github.com/jabibamman/SIO-CHAT/wiki).
+Pour plus d'exemples, veuillez vous référer à la [Documentation](https://github.com/jabibamman/SIO-CHAT/wiki).
 
 <p align="right">(<a href="#top">retourner en haut</a>)</p>
 
