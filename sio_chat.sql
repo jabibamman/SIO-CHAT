@@ -40,8 +40,7 @@ VALUES
 	('james.abibamman@gmail.com','james','abib'),
 	('erik.carrero@gmail.com','erik','carrero'),
 	('v.jordan@gmail.com','jordan','verhnes'),
-	('ronan.kielt@gmail.com','ronan','kielt'),
-	;
+	('ronan.kielt@gmail.com','ronan','kielt');
 
 /*!40000 ALTER TABLE `utilisateurs` ENABLE KEYS */;
 UNLOCK TABLES;
