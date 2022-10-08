@@ -37,9 +37,11 @@ LOCK TABLES `utilisateurs` WRITE;
 
 INSERT INTO `utilisateurs` (`mail`, `pseudo`, `mdp`)
 VALUES
-	('lu.gauret91@gmail.com','lucas','gauret'),
-	('p.data@hotmail.fr','data','atad'),
-	('v.jordan@gmail.com','jVernhes','azerty');
+	('james.abibamman@gmail.com','james','abib'),
+	('erik.carrero@gmail.com','erik','carrero'),
+	('v.jordan@gmail.com','jordan','verhnes'),
+	('ronan.kielt@gmail.com','ronan','kielt'),
+	;
 
 /*!40000 ALTER TABLE `utilisateurs` ENABLE KEYS */;
 UNLOCK TABLES;
