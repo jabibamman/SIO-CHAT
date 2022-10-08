@@ -118,11 +118,11 @@ Installer la dernière version de npm si ce n'est pas déjà fait :
 ```json
 
 "db": {
-"host": "localhost",
-"port": 3307,
-"user": "root",
-"password": "",
-"database": "sio_chat"
+  "host": "localhost",
+  "port": 3306,
+  "user": "root",
+  "password": "",
+  "database": "sio_chat"
 },
 "server": {
 "port": "3000"
@@ -168,6 +168,7 @@ Pour plus d'exemples, veuillez vous référer à la [Documentation](https://gith
 - [✅] Mise en place d'une base de donnée
     - [✅] Connexion au chat via un login/mot de passe
     - [❌] Persistance des messages
+- [✅] L'utilisateur à la possibilité d'envoyer des photos
 
 Voir les [problèmes ouverts](https://github.com/github_username/repo_name/issues) pour une liste complète des fonctionnalités proposées (et des problèmes connus).
 
