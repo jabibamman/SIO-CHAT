@@ -1,0 +1,13 @@
+{
+  "db" : {
+    "host": "localhost",
+    "port": 3307,
+    "user": "root",
+    "password": "",
+    "database": "sio_chat"
+  },
+  "server" :
+    {
+      "port": 8081
+    }
+  }

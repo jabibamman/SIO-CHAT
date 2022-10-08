@@ -8,12 +8,14 @@ const session = require('express-session');
 // Module mariadb, et configuration connection au serveur
 const mariadb = require('mariadb');
 // connexion à la base de données
+const config = require('./config/conf.json');
+
 const db = mariadb.createPool({
-    host: '127.0.0.1',
-    user: 'root',
-    password: '',
-    database: 'sio_chat'
-    //, port: '3307' // Rajouter le port si le port par défaut (3306) n'est pas utilisé
+    host: config.db.host,
+    user: config.db.user,
+    password: config.db.password,
+    database: config.db.database,
+    port : config.db.port
 });
 
 // Variable qui va contenir les infos de l'utilisateur (chargé depuis la BDD)
@@ -25,7 +27,9 @@ const server = http.createServer(app);
 const {Server} = require("socket.io");
 const io = new Server(server);
 const path = require("path");
-const PORT = 8080;
+const pathLog = "../logs";
+const fs = require ("fs");
+const PORT = config.server.port;
 
 // Propriétés session Express + prise en charge données réseau
 app.use(session({
@@ -171,7 +175,6 @@ app.post('/login', async(req,res)=>{
 
     // [DEBUG] On récupère les données du formulaire
     //console.log("Login : " + req.body.login + "\n Password : " + req.body.password);
-
 });
 
 
@@ -184,6 +187,54 @@ function generateColor() {
 }
 
 /**
+ *  Fonction qui va générer des logs automatiquement
+ * @param message
+ * @param type
+ * @constructor
+ */
+function Logger(message, type) {
+    let date = new Date();
+    let heure = date.getHours();
+    let minutes = date.getMinutes();
+    let secondes = date.getSeconds();
+
+    if (!fs.existsSync(pathLog)) { fs.mkdirSync(pathLog); }
+
+    switch (type) {
+        case "connection":
+            fs.appendFile (pathLog + "/" + date.getDate () + "-" + (date.getMonth () + 1) + "-" + date.getFullYear () + ".log", "[CONNEXION] " + heure + ":" + minutes + ":" + secondes + " : " + message + " \r \n", function (err) {
+                if (err) throw err;
+            });
+            break;
+
+        case "message":
+            fs.appendFile (pathLog + "/" + date.getDate () + "-" + (date.getMonth () + 1) + "-" + date.getFullYear () + ".log", "[MESSAGE] " + heure + ":" + minutes + ":" + secondes + " : " + message + " \r \n", function (err) {
+                if (err) throw err;
+            });
+            break;
+
+        case "disconnection":
+            fs.appendFile (pathLog + "/" + date.getDate () + "-" + (date.getMonth () + 1) + "-" + date.getFullYear () + ".log", "[DECONNEXION] " + heure + ":" + minutes + ":" + secondes + " : " + message + " \r \n", function (err) {
+                if (err) throw err;
+            });
+            break;
+
+        case "block":
+            fs.appendFile (pathLog + "/" + date.getDate () + "-" + (date.getMonth () + 1) + "-" + date.getFullYear () + ".log", "[BLOQUAGE] " + heure + ":" + minutes + ":" + secondes + " : " + message + " \r \n", function (err) {
+                if (err) throw err;
+            });
+            break;
+
+        case 'error':
+            // en rouge
+            fs.appendFile (pathLog + "/" + date.getDate () + "-" + (date.getMonth () + 1) + "-" + date.getFullYear () + ".log", "[ERREUR] " + heure + ":" + minutes + ":" + secondes + " : " + message + " \r \n", function (err) {
+                if (err) throw err;
+            });
+            break;
+    }
+}
+
+/**
  * Lancement du gestionnaire d'événements, qui va gérer notre Socket
  */
 io.on('connection', (socket) => {
@@ -192,7 +243,7 @@ io.on('connection', (socket) => {
     const pseudoLog = infosUtilisateur.pseudo;
 
     // LOG : On envoie un message de bienvenue à l'utilisateur
-    console.log(`${pseudoLog} vient de se connecter à ${new Date()}`);
+    Logger(`${pseudoLog} vient de se connecter à ${new Date()}`, "connection");
 
     // Récupération de la liste des utilisateurs (Sockets) connectés
     io.fetchSockets().then((room) => {
@@ -217,8 +268,7 @@ io.on('connection', (socket) => {
     socket.on('emission_message', (message, id) => {
 
         // LOG DE MESSAGES
-        console.log(pseudoLog + " à écrit : " + message + " à " + new Date().getHours() + ":" + new Date().getUTCMinutes() + " émetteur : " + socket.id + " destinataire : " + id);
-
+        Logger(`${pseudoLog} à écrit : ${message},  émetteur : ${socket.id},  destinataire : ${id}`, "message");
         const laDate = new Date();
 
         // Mis en format JSON
@@ -249,6 +299,7 @@ io.on('connection', (socket) => {
     */
     socket.on("bloquer", (id_user, id_bloquer) => {
         console.log(socket.id + " bloque " + id_bloquer);
+        Logger(`${pseudoLog} à bloqué ${id_bloquer}`, "block");
 
         io.to(id_bloquer).emit("est_bloquer", socket.id);
 
@@ -280,11 +331,11 @@ io.on('connection', (socket) => {
         // On récupère le pseudo de l'utilisateur qui se déconnecte
         socket._onclose( pseudoDisconnected = pseudoLog);
 
-        // Affichage de la personne qui se déconnecte
-        console.log(pseudoDisconnected + " viens de ce déconnecter à " + new Date ());
+        // LOG DE DÉCONNEXION
+        Logger(`${pseudoDisconnected} vient de se déconnecter`, "disconnection");
 
         // PERMET D'AFFICHER LES PERSONNES CONNECTÉS EN LOG
-        /* console.log("Personnes Connecté(e)s : "); sockets.forEach(element => console.log(element.nickname));  */
+        //sockets.forEach(element => Logger(element.pseudo, "connection")); *
 
         // Récupération de la liste des utilisateurs (Sockets) connectés
         io.fetchSockets().then((room) => {
