@@ -200,7 +200,9 @@ app.post('/register', async(req,res)=>{
 
 app.post('/forgotPasswd', async(req, res)=>{
     req.body.password !== req.body.verifPasswd ? res.redirect('/forgotPasswd'): false;
-    const mailRows = await conn.query("SELECT mail FROM utilisateurs WHERE mail = ?", [req.body.email]);
+    const conn = await db.getConnection();
+
+    const mailRows = await conn.query("SELECT mail FROM utilisateurs WHERE mail = ?", [req.body.mail]);
 
     if (mailRows.length < 0 ) {
         res.redirect('/forgotPasswd');
@@ -208,10 +210,11 @@ app.post('/forgotPasswd', async(req, res)=>{
 
     // TODO : Cannot POST /forgotPswd , j'ai enlevé la varialbe rows, à voir...
 
-    const conn = await db.getConnection();
-    const forgot_pswd = "UPDATE utilisateurs set password = ? WHERE mail = ?";
+    const forgot_pswd = "UPDATE utilisateurs set mdp = ? WHERE mail = ?";
     await conn.query(forgot_pswd, [req.body.password, req.body.mail]);
     await conn.end();
+
+    res.redirect('/');
 });
 
 

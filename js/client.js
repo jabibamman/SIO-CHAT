@@ -182,7 +182,9 @@ function salon(id) {
             if (contenu.image) {
                 const img = document.createElement ("img");
                 img.src = contenu.image;
-                img.setAttribute ("class", "img-fluid");
+                img.setAttribute("class", "img-fluid");
+                img.setAttribute("width", "200");
+                // center image img.setAttribute("class", "mx-auto d-block");
                 img.setAttribute ("alt", "Responsive image");
                 // réduire la taille de l'image
                 messages.appendChild (img);
