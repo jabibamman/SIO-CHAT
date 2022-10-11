@@ -78,6 +78,11 @@ app.get('/register', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'register.html'));
 });
 
+// Route page forgotPasswd
+app.get('/forgotPasswd', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'forgotPswd.html'));
+});
+
 // Route client.js
 app.get('/client.js', (req, res) => {
     res.sendFile(__dirname + '/client.js');
@@ -184,14 +189,29 @@ app.post('/register', async(req,res)=>{
             res.redirect('/register');
     }else{
         // On prépare la requête
-        const rows = await conn.query(register, [req.body.email, req.body.login, req.body.password]);
+        await conn.query(register, [req.body.email, req.body.login, req.body.password]);
         // On ferme la connexion
         await conn.end();
 
         // On la redirige vers la page de connexion
         res.redirect('/');
     }
+});
 
+app.post('/forgotPasswd', async(req, res)=>{
+    req.body.password !== req.body.verifPasswd ? res.redirect('/forgotPasswd'): false;
+    const mailRows = await conn.query("SELECT mail FROM utilisateurs WHERE mail = ?", [req.body.email]);
+
+    if (mailRows.length < 0 ) {
+        res.redirect('/forgotPasswd');
+    }
+
+    // TODO : Cannot POST /forgotPswd , j'ai enlevé la varialbe rows, à voir...
+
+    const conn = await db.getConnection();
+    const forgot_pswd = "UPDATE utilisateurs set password = ? WHERE mail = ?";
+    await conn.query(forgot_pswd, [req.body.password, req.body.mail]);
+    await conn.end();
 });
 
 
