@@ -46,7 +46,6 @@ server.listen(PORT, () => {
     console.log('Serveur démarré sur le port : ' + PORT);
 });
 
-
 /*
  Générations des routes pour le serveur
 */
@@ -72,6 +71,11 @@ app.get('/salon', (req, res) => {
 // Route page de login
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'login.html'));
+});
+
+// Route page register
+app.get('/register', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'register.html'));
 });
 
 // Route client.js
@@ -167,6 +171,28 @@ app.post('/login', async(req,res)=>{
     //console.log("Login : " + req.body.login + "\n Password : " + req.body.password);
 });
 
+// Gestionnaire d'incription au salon
+app.post('/register', async(req,res)=>{
+    // Connexion à la BDD
+    const conn = await db.getConnection();
+    // Requête SQL
+    const register = "INSERT INTO utilisateurs (mail, pseudo, mdp) VALUES (?, ?, ?)";
+    const mailRows = await conn.query("SELECT mail FROM utilisateurs WHERE mail = ?", [req.body.email]);
+    const pseudoRows = await conn.query("SELECT pseudo FROM utilisateurs WHERE pseudo = ?", [req.body.login]);
+    // Si l'email est déja utilisée
+    if(mailRows.length > 0 || pseudoRows.length > 0) {
+            res.redirect('/register');
+    }else{
+        // On prépare la requête
+        const rows = await conn.query(register, [req.body.email, req.body.login, req.body.password]);
+        // On ferme la connexion
+        await conn.end();
+
+        // On la redirige vers la page de connexion
+        res.redirect('/');
+    }
+
+});
 
 
 /**
@@ -317,7 +343,6 @@ io.on('connection', (socket) => {
                 }
             });
 
-            console.log (userConnecter);
             io.emit('get-pseudo', userConnecter);
         });
     });

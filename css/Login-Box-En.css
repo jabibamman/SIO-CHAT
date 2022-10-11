@@ -67,14 +67,6 @@
   height: 1px;
 }
 
-.email-imput {
-  border-radius: 5px;
-  color: #29303b;
-  font-size: 18px;
-  height: auto;
-  padding: 11px 10px 12px 40px;
-}
-
 .form-control {
   box-shadow: none;
   font-size: 16px;
@@ -134,7 +126,7 @@ h5 {
   font-size: 16px;
 }
 
-.email-imput, .password-input {
+.pseudo-input, .mail-input, .password-input {
   background-color: #313339;
   border-color: rgba(25,25,25,0.69);
 }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Login</title>
+    <title>Register</title>
     <link rel="stylesheet" href="bootstrap.min.css">
     <link rel="stylesheet" href="Animated-CSS-Waves-Background-SVG.css">
     <link rel="stylesheet" href="Login-Box-En.css">
@@ -12,7 +12,7 @@
 </head>
 
 <body>
-<form id="form" method="post" action="/login">
+<form id="form" method="post" action="/register">
 
     <div class="container-fluid" style="margin-top: 10vh;">
         <div class="row" style="background: transparent;">
@@ -23,6 +23,8 @@
                         <h5 style="color: #a0a0a0;text-align: left;">Nous sommes si heureux de te revoir !</h5>
                     </div>
                     <div class="email-login" style="background: #36393f;">
+                        <h5>Addresse mail</h5>
+                        <input type="email" name="email" id="email" class="mail-input form-control" style="margin-top:10px;margin-bottom:1.5em;" required="required">
                         <h5>Nom d'utilisateur</h5>
                         <input type="text" id="login" name="login" class="pseudo-input form-control" style="margin-top: 10px;margin-bottom: 1.5em;" required="required">
                         <h5>Mot de passe</h5>
@@ -33,7 +35,7 @@
                         <button class="btn btn-primary d-block box-shadow w-100" id="submit-id-submit" type="submit" style="margin-top: 1em;">Se connecter</button>
                     </div>
                     <div id="login-box-footer" style="padding: 10px 20px;padding-bottom: 23px;padding-top: 18px;">
-                        <p class="text-start">Besoin d'un compte ?<a id="register-link" href="/register">S'inscrire</a></p>
+                        <p class="text-start">Besoin d'un compte ?<a id="login-link" href="/">Se connecter</a></p>
                     </div>
                 </div>
             </div>
