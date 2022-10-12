@@ -110,8 +110,6 @@ socket.on('get-pseudo', (userConnecter) => {
         notif.setAttribute("id", element.id_users+"_notif");
         notif.setAttribute("class", "badge badge-light")
 
-
-
         // console.log("Salon :", id_salon); // DEBUG MODE
 
         // Permet d'afficher les utilisateurs connecté et de ne pas s'afficher sois même, j'ai mis a.innerHTML pour que les utilisateurs soient bien clicquable

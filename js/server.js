@@ -40,7 +40,6 @@ app.use(session({
 
 app.use(express.json()); // Prise en charge du format JSON
 app.use(express.urlencoded({extended:true})); // Prise en charge des formulaires/entêtes HTML
-
 // Port d'écoute
 server.listen(PORT, () => {
     console.log('Serveur démarré sur le port : ' + PORT);
@@ -56,16 +55,9 @@ app.get('/salon', (req, res) => {
         // Si oui, on charge la page du salon de discussion
         res.sendFile(path.join(__dirname, '..', 'index.html'));
     }else{
-        // Si non, on le redirige vers la page 403
         res.sendFile(path.join(__dirname, '..', '403.html'));
-        // Erreur 403 : accès non autorisé
         res.status(403);
-
     }
-    /*
-    console.log(req.sessionID); // ID de la session
-    console.log(req.session); // Contenu de la session
-    */
 });
 
 // Route page de login
@@ -146,34 +138,20 @@ app.get('/403.js', (req, res) => {
 
 // Gestionnaire de connexion au salon
 app.post('/login', async(req,res)=>{
-    // Connexion à la BDD
     const conn = await db.getConnection();
-    // Requête SQL
     const sql = "SELECT * FROM utilisateurs WHERE pseudo = ? AND mdp = ?";
-    // On prépare la requête
     const rows = await conn.query(sql, [req.body.login, req.body.password]);
-    // On ferme la connexion
     await conn.end();
-
-    // On vérifie si on a trouvé un utilisateur + [DEBUG] console.log(rows);
     if(rows.length > 0) {
-        // Si oui, on enregistre les infos de l'utilisateur dans la variable infosUtilisateur
         infosUtilisateur = {
             mail: rows[0].mail,
             pseudo: rows[0].pseudo,
         };
-        // On enregistre les infos de l'utilisateur dans la session
         req.session.loggedin = true;
-
-        // Rediriger le client vers index.html
         res.redirect('/salon');
     }else{
-        // Si non, on renvoie un message d'erreur
         res.send("Erreur, mauvais identifiants !");
     }
-
-    // [DEBUG] On récupère les données du formulaire
-    //console.log("Login : " + req.body.login + "\n Password : " + req.body.password);
 });
 
 // Gestionnaire d'incription au salon
@@ -277,12 +255,17 @@ function Logger(message, type) {
  * Lancement du gestionnaire d'événements, qui va gérer notre Socket
  */
 io.on('connection', (socket) => {
-    // Si le pseudo n'est pas défini alors on retourne nul sinon LOG DE CONNEXION
+    if(infosUtilisateur === undefined) {
+        new Logger("Un utilisateur non connecté a tenté de se connecter", "error");
+        socket.disconnect();
+        return;
+    }
+
     socket.pseudo = "<b style=\"color:" + generateColor() + "\">" + infosUtilisateur.pseudo + "</b>";
     const pseudoLog = infosUtilisateur.pseudo;
 
     // LOG : On envoie un message de bienvenue à l'utilisateur
-    Logger(`${pseudoLog} vient de se connecter à ${new Date()}`, "connection");
+    new Logger(`${pseudoLog} vient de se connecter à ${new Date()}`, "connection");
 
     // Récupération de la liste des utilisateurs (Sockets) connectés
     io.fetchSockets().then((room) => {
@@ -310,7 +293,7 @@ io.on('connection', (socket) => {
         (message, image, id) => {
 
             // LOG DE MESSAGES
-            Logger (`${pseudoLog} à écrit : ${message},  émetteur : ${socket.id},  destinataire : ${id}`, "message");
+            new Logger (`${pseudoLog} à écrit : ${message},  émetteur : ${socket.id},  destinataire : ${id}`, "message");
             const laDate = new Date ();
 
             // [OPTIONAL] Pour enregistrer les messages dans le serveur
@@ -348,8 +331,7 @@ io.on('connection', (socket) => {
      Socket pour le bloquage des messages - SERVER.js
     */
     socket.on("bloquer", (id_user, id_bloquer) => {
-        console.log(socket.id + " bloque " + id_bloquer);
-        Logger(`${pseudoLog} à bloqué ${id_bloquer}`, "block");
+        new Logger(`${pseudoLog} à bloqué ${id_bloquer}`, "block");
 
         io.to(id_bloquer).emit("est_bloquer", socket.id);
 
@@ -381,7 +363,7 @@ io.on('connection', (socket) => {
         socket._onclose( pseudoDisconnected = pseudoLog);
 
         // LOG DE DÉCONNEXION
-        Logger(`${pseudoDisconnected} vient de se déconnecter`, "disconnection");
+        new Logger(`${pseudoDisconnected} vient de se déconnecter`, "disconnection");
 
         // PERMET D'AFFICHER LES PERSONNES CONNECTÉS EN LOG
         //sockets.forEach(element => Logger(element.pseudo, "connection")); *
