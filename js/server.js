@@ -71,7 +71,6 @@ server.listen(PORT, () => {
                 default:
                     let ip = stdout.split("IPv4")[1].split(":")[1].split("\r")[0].trim();
                     console.log(`Serveur démarré sur http://${ip}:${PORT}`);
-
                     exec("start http://" + ip + ":" + PORT);
                     break;
             }
