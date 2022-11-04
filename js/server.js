@@ -29,6 +29,7 @@ const io = new Server(server);
 const path = require("path");
 const pathLog = "../logs";
 const fs = require ("fs");
+const {exec} = require ("child_process");
 const PORT = config.server.port;
 
 // Propriétés session Express + prise en charge données réseau
@@ -42,7 +43,40 @@ app.use(express.json()); // Prise en charge du format JSON
 app.use(express.urlencoded({extended:true})); // Prise en charge des formulaires/entêtes HTML
 // Port d'écoute
 server.listen(PORT, () => {
-    console.log('Serveur démarré sur le port : ' + PORT);
+    // si le server est un mac on prend l'hostname et non l'ip
+    if (process.platform === "darwin") {
+        exec("hostname", (error, stdout, stderr) => {
+            switch(true) {
+                case error:
+                    console.log("Erreur type 'error' : " + error.message);
+                    break;
+                case stderr:
+                    console.log("Erreur type 'stderr' : " + stderr);
+                    break;
+                default:
+                    console.log(`Serveur démarré sur http://${stdout}:${PORT}`);
+                    exec(`open http://${stdout}:${PORT}`);
+                    break;
+            }
+        });
+    } else {
+        exec("ipconfig", (error, stdout, stderr) => {
+            switch(true) {
+                case error:
+                    console.log("Erreur type 'error' : " + error.message);
+                    break;
+                case stderr:
+                    console.log("Erreur type 'stderr' : " + stderr);
+                    break;
+                default:
+                    let ip = stdout.split("IPv4")[1].split(":")[1].split("\r")[0].trim();
+                    console.log(`Serveur démarré sur http://${ip}:${PORT}`);
+
+                    exec("start http://" + ip + ":" + PORT);
+                    break;
+            }
+        });
+    }
 });
 
 /*
