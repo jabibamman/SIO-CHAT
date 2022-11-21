@@ -26,7 +26,7 @@ form.addEventListener('submit', (e) => {
 
         temp = input.value;
         reader.onloadend = function () {
-            socket.emit ('emission_message', temp, reader.result, id_salon);
+            socket.emit('emission_message', temp, reader.result, id_salon);
         }
         reader.readAsDataURL (file);
 
