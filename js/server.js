@@ -54,6 +54,7 @@ server.listen(PORT, () => {
                     console.log("Erreur type 'stderr' : " + stderr);
                     break;
                 default:
+                    stdout = stdout.replace(/\n/g, '');
                     console.log(`Serveur démarré sur http://${stdout}:${PORT}`);
                     exec(`open http://${stdout}:${PORT}`);
                     break;
@@ -218,8 +219,6 @@ app.post('/forgotPasswd', async(req, res)=>{
     if (mailRows.length < 0 ) {
         res.redirect('/forgotPasswd');
     }
-
-    // TODO : Cannot POST /forgotPswd , j'ai enlevé la varialbe rows, à voir...
 
     const forgot_pswd = "UPDATE utilisateurs set mdp = ? WHERE mail = ?";
     await conn.query(forgot_pswd, [req.body.password, req.body.mail]);
